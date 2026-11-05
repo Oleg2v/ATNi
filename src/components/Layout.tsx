@@ -5,6 +5,7 @@ import { fmt, useT } from '../i18n/index.tsx';
 import type { Lang, Role } from '../types.ts';
 import { useLive } from './Live.tsx';
 import { Dialog } from './Dialog.tsx';
+import { PageWeight } from './PageWeight.tsx';
 
 export function Layout({ children }: { children: ReactNode }) {
   const t = useT();
@@ -104,6 +105,12 @@ export function Layout({ children }: { children: ReactNode }) {
           <Link to="/accessibility">{t.nav.accessibility}</Link>
           <Link to="/evaluators">{t.nav.evaluators}</Link>
           <span>{t.appName} · {t.concept} · v0.1</span>
+          <span className="row" style={{ gap: 6 }}>
+            <button type="button" className="btn btn-sm" aria-pressed={state.settings.lite} onClick={() => update((s) => ({ ...s, settings: { ...s.settings, lite: !s.settings.lite } }))}>
+              {state.lang === 'sw' ? 'Hali nyepesi' : 'Lite mode'}: {state.settings.lite ? (state.lang === 'sw' ? 'imewashwa' : 'on') : (state.lang === 'sw' ? 'imezimwa' : 'off')}
+            </button>
+            <PageWeight lang={state.lang} />
+          </span>
         </div>
       </footer>
       <Dialog open={confirmReset} onClose={() => setConfirmReset(false)} title={t.resetDemo}>

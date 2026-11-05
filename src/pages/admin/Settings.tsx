@@ -1,3 +1,4 @@
+import { PageWeight } from '../../components/PageWeight.tsx';
 import { useState } from 'react';
 import { useStore } from '../../store/index.tsx';
 import { useLive } from '../../components/Live.tsx';
@@ -26,6 +27,7 @@ export function SettingsPage() {
         <div className="card">
           <h2>Presentation</h2>
           <CheckField id="field-settings-lite" label="Lite mode" checked={s.lite} onChange={(v) => { set({ lite: v }); log('settings', 'lite', `${s.lite} → ${v}`); toast(v ? 'Lite mode on' : 'Lite mode off'); }} hint="For slow connections and older devices: charts are replaced by their tables, shadows and non-essential decoration are removed. Content and functions stay identical." />
+          <p className="small" style={{ marginTop: -6 }}>{'Page weight: '}<PageWeight lang="en" /> {'(Lite mode removes no bytes from the first load in this concept; it drops charts and decoration so that low-end devices render faster.)'}</p>
           <h2>AI assistant</h2>
           <ul className="small">
             <li>Answers are assembled strictly from the knowledge base and the company’s own results; questions outside scope are passed to a person (hand-off queue).</li>
