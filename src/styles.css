@@ -54,6 +54,7 @@ small, .muted { color: var(--text-2); }
 code, .mono { font-family: var(--mono); font-size: 0.9em; }
 hr { border: 0; border-top: 1px solid var(--border); margin: 1.25rem 0; }
 ul, ol { padding-left: 1.25rem; }
+main li > a { display: inline-block; padding: 3px 0; }
 img, svg { max-width: 100%; }
 table { border-collapse: collapse; width: 100%; font-size: 0.925rem; }
 th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }

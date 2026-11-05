@@ -101,6 +101,8 @@ export function EditorPage({ id }: { id: string }) {
     log('publish', id, `${comment} · ${summary}${snapshot.previous_version ? ` · replaces ${snapshot.previous_version.id}` : ''}${snapshot.countries_updated.length ? ` · countries: ${snapshot.countries_updated.join(', ')}` : ''}`, snapshot);
     setPublishOpen(false);
     toast(`${id} published. ${snapshot.previous_version ? `${snapshot.previous_version.id} archived.` : ''}`);
+    // the Publish button disappears once the version is published: move focus to the page heading
+    window.setTimeout(() => document.querySelector<HTMLElement>('main h1')?.focus(), 60);
   };
 
   const byTopic = version.topics.map((tp) => ({ topic: tp, questions: version.questions.filter((q) => q.topic === tp.id) }));

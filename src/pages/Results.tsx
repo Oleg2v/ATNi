@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useStore } from '../store/index.tsx';
+import { can, useStore } from '../store/index.tsx';
 import { fmt, useLang, useT } from '../i18n/index.tsx';
 import { Link, useRoute } from '../router/index.tsx';
 import { useAssessments } from '../lib/useAssessments.ts';
@@ -27,6 +27,16 @@ export function ResultsPage() {
   const wanted = params.get('id');
   const assessment: Assessment | null = (wanted ? all.find((a) => a.id === wanted) : null) ?? latestOwnAssessment(state, all.length ? all : null);
 
+  if (!can.viewAnswers(state.role)) {
+    return (
+      <div>
+        <h1>{t.results.title}</h1>
+        <Callout kind="warn" role="status">
+          <strong>{t.common.noAccess}</strong> — {lang === 'sw' ? 'Wahariri wa maudhui wanahariri maswali, mapendekezo na tafsiri; hawaoni majibu ya kampuni binafsi. Majibu yanaonekana kwa kampuni yenyewe, wachambuzi na wasimamizi.' : 'Content editors edit questions, recommendations and translations; they do not see individual company answers. Answers are visible to the company itself, analysts and administrators.'}
+        </Callout>
+      </div>
+    );
+  }
   if (loading && !assessment) return <p role="status">{t.common.loading}</p>;
   if (!assessment || !assessment.result) {
     return (
@@ -142,7 +152,7 @@ export function ResultsPage() {
                   <th scope="col">{t.results.version}</th>
                   <th scope="col">{t.results.overall}</th>
                   <th scope="col">%</th>
-                  <th scope="col"></th>
+                  <th scope="col"><span className="sr-only">{t.common.more}</span></th>
                 </tr>
               </thead>
               <tbody>

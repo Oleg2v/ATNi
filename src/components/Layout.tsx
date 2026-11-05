@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link, navigate, useRoute } from '../router/index.tsx';
 import { ROLE_ORDER, useStore } from '../store/index.tsx';
 import { fmt, useT } from '../i18n/index.tsx';
@@ -15,6 +15,30 @@ export function Layout({ children }: { children: ReactNode }) {
   const role = state.role;
   const isStaff = role !== 'company';
 
+  // scrollable tables must be keyboard reachable: mark the ones that actually overflow
+  useEffect(() => {
+    const mark = () => {
+      document.querySelectorAll<HTMLElement>('.table-wrap').forEach((el) => {
+        if (el.scrollWidth > el.clientWidth + 1) {
+          el.tabIndex = 0;
+          el.setAttribute('role', 'region');
+          if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.querySelector('caption')?.textContent?.trim() || 'Table');
+        } else {
+          el.removeAttribute('tabindex');
+          el.removeAttribute('role');
+        }
+      });
+    };
+    const t1 = window.setTimeout(mark, 50);
+    const t2 = window.setTimeout(mark, 600);
+    window.addEventListener('resize', mark);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      window.removeEventListener('resize', mark);
+    };
+  }, [route.path, state.lang, state.role]);
+
   const setLang = (lang: Lang) => update((s) => ({ ...s, lang }));
   const setRole = (r: Role) => {
     update((s) => ({ ...s, role: r }));
@@ -30,7 +54,7 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <a href="#main" className="skip-link" onClick={(e) => { e.preventDefault(); document.getElementById('main')?.focus(); }}>{t.skip}</a>
-      <div className="banner" role="note">
+      <div className="banner" role="region" aria-label="Disclaimer">
         <strong>Unofficial concept by Kikkey</strong> · Synthetic data · Not affiliated with or endorsed by ATNi
       </div>
       <header className="header">

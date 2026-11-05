@@ -9,7 +9,7 @@ async function resetDemo(page: Page) {
 test.describe('company flow', () => {
   test('start → survey with conditional questions and offline save → results → why → roadmap', async ({ page }) => {
     await resetDemo(page);
-    await expect(page.getByRole('note')).toContainText('Unofficial concept by Kikkey');
+    await expect(page.getByRole('region', { name: 'Disclaimer' })).toContainText('Unofficial concept by Kikkey');
     await page.getByLabel('Country').selectOption('TZ');
     await page.getByRole('radio', { name: /Small/ }).check();
     await page.getByRole('button', { name: 'Begin assessment' }).click();
@@ -151,6 +151,6 @@ test.describe('company flow', () => {
     await expect(table.getByRole('row').filter({ hasText: 'Final score' }).getByRole('cell')).toHaveText(['12', '2']);
     await expect(page.getByText('D → B')).toBeVisible();
     await page.getByLabel('Sugars (g)', { exact: true }).nth(1).fill('30');
-    await expect(table.getByRole('row').filter({ hasText: 'Final score' }).getByRole('cell').nth(1)).toHaveText('8');
+    await expect(table.getByRole('row').filter({ hasText: 'Final score' }).getByRole('cell').nth(1)).toHaveText('11'); // N = 15 ≥ 11 ⇒ protein no longer counted
   });
 });

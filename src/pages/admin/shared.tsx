@@ -63,7 +63,7 @@ export function PageHead({ title, lead, right }: { title: string; lead?: ReactNo
   return (
     <>
       <div className="page-head">
-        <h1>{title}</h1>
+        <h1 tabIndex={-1}>{title}</h1>
         {right && <div className="row">{right}</div>}
       </div>
       {lead && <p className="lead">{lead}</p>}

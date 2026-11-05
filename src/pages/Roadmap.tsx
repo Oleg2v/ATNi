@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useStore } from '../store/index.tsx';
+import { can, useStore } from '../store/index.tsx';
 import { fmt, useLang, useT } from '../i18n/index.tsx';
 import { Link, useRoute } from '../router/index.tsx';
 import { useAssessments } from '../lib/useAssessments.ts';
@@ -23,6 +23,16 @@ export function RoadmapPage() {
   const version = assessment ? versionById(state, assessment.version_id) ?? state.versions[0] : null;
   const steps = useMemo(() => (assessment?.result && version ? buildRoadmap(version, assessment.result, assessment.answers) : []), [assessment, version]);
 
+  if (!can.viewAnswers(state.role)) {
+    return (
+      <div>
+        <h1>{t.roadmap.title}</h1>
+        <Callout kind="warn" role="status">
+          <strong>{t.common.noAccess}</strong> — {lang === 'sw' ? 'Wahariri wa maudhui wanahariri maswali, mapendekezo na tafsiri; hawaoni majibu ya kampuni binafsi. Majibu yanaonekana kwa kampuni yenyewe, wachambuzi na wasimamizi.' : 'Content editors edit questions, recommendations and translations; they do not see individual company answers. Answers are visible to the company itself, analysts and administrators.'}
+        </Callout>
+      </div>
+    );
+  }
   if (loading && !assessment) return <p role="status">{t.common.loading}</p>;
   if (!assessment || !assessment.result || !version) {
     return (

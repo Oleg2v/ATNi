@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '../store/index.tsx';
 import { fmt, useLang, useT } from '../i18n/index.tsx';
 import { navigate, Link } from '../router/index.tsx';
@@ -18,6 +18,8 @@ export function StartPage() {
   const [country, setCountry] = useState<CountryCode>(state.profile?.country ?? 'KE');
   const [size, setSize] = useState<CompanySize>(state.profile?.size ?? 'medium');
   const [qLang, setQLang] = useState<Lang>(state.profile?.lang ?? state.lang);
+  // the questionnaire language follows the interface language until the user picks one explicitly
+  useEffect(() => setQLang(state.lang), [state.lang]);
   const countryDef = state.countries.find((c) => c.code === country)!;
   const planned = countryDef.status === 'planned';
   const version = activeVersionFor(state, country);

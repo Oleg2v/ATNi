@@ -101,8 +101,8 @@ export function AuditPage() {
             </p>
             <Callout kind="warn">The rolled-back version keeps its content exactly as published; nothing is merged. Edits made to drafts are not affected.</Callout>
             <div className="row" style={{ marginTop: 12 }}>
-              <button type="button" className="btn btn-primary" data-autofocus onClick={doRollback}>Roll back</button>
-              <button type="button" className="btn" onClick={() => setConfirm(null)}>Cancel</button>
+              <button type="button" className="btn" data-autofocus onClick={() => setConfirm(null)}>Cancel</button>
+              <button type="button" className="btn btn-danger" onClick={doRollback}>Roll back</button>
             </div>
           </>
         )}
