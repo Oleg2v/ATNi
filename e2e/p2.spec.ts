@@ -44,7 +44,7 @@ test.describe('P2 features', () => {
     await page.getByLabel(/Demo role switcher/).selectOption('content');
     await page.goto('/#/admin/translations');
     await expect(page.getByRole('heading', { level: 1 })).toContainText(/Translation/i);
-    await expect(page.getByRole('row').filter({ hasText: 'recommendations' })).toContainText(/12\s+24\s+50 %/);
+    await expect(page.getByRole('row').filter({ hasText: 'recommendations' })).toContainText(/12\s*24\s*50 %/);
     const dl = page.waitForEvent('download');
     await page.getByRole('button', { name: /Export strings for translator/ }).click();
     const file = await dl;
