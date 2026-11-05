@@ -243,4 +243,8 @@ describe('importer (survey.json format)', () => {
     expect(report.skipped.length).toBe(1);
     expect(report.counts.questions).toBe(1);
   });
+  it('flags unscored choices and self-dependencies for review', () => {
+    const { report } = importNutriCheck([{ topic: 'T', question: 'Q', question_id: '1', dependency: '1', propositions: { type: 'choices', propositions: ['a', 'b'] } }], { id: 'x', version: '0', country: '*', created_at: '' });
+    expect(report.needs_review.map((r) => r.message.slice(0, 20))).toEqual(['Multiple-choice ques', 'Depends on itself; t']);
+  });
 });

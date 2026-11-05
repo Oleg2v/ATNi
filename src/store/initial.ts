@@ -48,6 +48,8 @@ export interface AppState {
   investorConsent: boolean;
   accountDeleted: boolean;
   tourDone: boolean;
+  /** guided tour: current step index, or null when not running */
+  tour: number | null;
 }
 
 export function initialState(): AppState {
@@ -77,5 +79,6 @@ export function initialState(): AppState {
     investorConsent: true,
     accountDeleted: false,
     tourDone: false,
+    tour: null,
   };
 }

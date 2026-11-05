@@ -12,6 +12,8 @@ export interface ImportReport {
   unsupported: { question_id: string; kind: string; message: string }[];
   warnings: string[];
   skipped: { index: number; reason: string }[];
+  /** things the importer could parse but a human must decide on before publishing */
+  needs_review: { question_id: string; message: string }[];
 }
 
 export const DEFAULT_GRADING: GradeThreshold[] = [
@@ -98,6 +100,7 @@ export function importNutriCheck(input: unknown, opts: { id: string; version: st
     unsupported: [],
     warnings: [],
     skipped: [],
+    needs_review: [],
   };
   const list: unknown = Array.isArray(input) ? input : isObj(input) && Array.isArray(input.questions) ? input.questions : null;
   if (!list) {
@@ -137,6 +140,9 @@ export function importNutriCheck(input: unknown, opts: { id: string; version: st
       const have = new Set(r.recommandations.map((e) => e.score));
       for (const s of achievableScores(q)) if (!have.has(s)) report.scores_without_recs.push({ question_id: q.question_id, score: s });
     }
+    if (q.propositions.type === 'choices' && !(q.propositions.count_score_map && q.propositions.count_score_map.length) && q.propositions.count_score_coeff === undefined)
+      report.needs_review.push({ question_id: q.question_id, message: 'Multiple-choice question without count_score_map or count_score_coeff: the source system applied its own default. Set the scoring explicitly.' });
+    if (q.dependency === q.question_id) report.needs_review.push({ question_id: q.question_id, message: 'Depends on itself; the dependency must be corrected or removed.' });
     if (q.dependency) {
       const parent = byId.get(q.dependency);
       if (!parent) report.unsupported.push({ question_id: q.question_id, kind: 'dangling', message: `Depends on ${q.dependency}, which is not in the file.` });
