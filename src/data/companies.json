@@ -1,0 +1,8 @@
+[
+  { "id": "C-001", "name": "Jambo Grain Foods (synthetic)", "country": "KE", "size": "medium", "sector": "Cereals and flours", "is_current_user": true },
+  { "id": "C-002", "name": "Lakeview Dairy Co-op (synthetic)", "country": "KE", "size": "small", "sector": "Dairy" },
+  { "id": "C-003", "name": "Savannah Snacks Ltd (synthetic)", "country": "KE", "size": "large", "sector": "Snacks and confectionery" },
+  { "id": "C-004", "name": "Kilimanjaro Beverages (synthetic)", "country": "TZ", "size": "large", "sector": "Beverages" },
+  { "id": "C-005", "name": "Mwanza Fish Processors (synthetic)", "country": "TZ", "size": "medium", "sector": "Fish and protein" },
+  { "id": "C-006", "name": "Dodoma Oil Mills (synthetic)", "country": "TZ", "size": "small", "sector": "Edible oils" }
+]

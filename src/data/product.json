@@ -1,0 +1,8 @@
+{
+  "name": "Demo maize porridge mix (synthetic)",
+  "basis": "per 100 g as sold",
+  "variants": {
+    "A": { "label": "Variant A (current recipe)", "energy_kj": 1560, "sugars_g": 18, "sat_fat_g": 1.8, "salt_g": 0.9, "fibre_g": 4.5, "protein_g": 7.5, "fvl_percent": 0 },
+    "B": { "label": "Variant B (reformulated)", "energy_kj": 1490, "sugars_g": 9, "sat_fat_g": 1.1, "salt_g": 0.5, "fibre_g": 6.5, "protein_g": 8.5, "fvl_percent": 12 }
+  }
+}

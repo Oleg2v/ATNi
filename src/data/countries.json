@@ -1,0 +1,8 @@
+[
+  { "code": "KE", "name": "Kenya", "name_sw": "Kenya", "status": "active", "languages": ["en", "sw"], "methodology_version_id": "v1.0" },
+  { "code": "TZ", "name": "Tanzania", "name_sw": "Tanzania", "status": "active", "languages": ["en", "sw"], "methodology_version_id": "v1.0" },
+  { "code": "NG", "name": "Nigeria", "name_sw": "Nigeria", "status": "planned", "languages": ["en"] },
+  { "code": "SN", "name": "Senegal", "name_sw": "Senegal", "status": "planned", "languages": ["en"] },
+  { "code": "ID", "name": "Indonesia", "name_sw": "Indonesia", "status": "planned", "languages": ["en"] },
+  { "code": "BD", "name": "Bangladesh", "name_sw": "Bangladesh", "status": "planned", "languages": ["en"] }
+]

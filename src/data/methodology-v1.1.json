@@ -1,0 +1,822 @@
+{
+  "id": "v1.1",
+  "version": "1.1",
+  "tool": "self-assessment",
+  "country": "*",
+  "status": "draft",
+  "created_at": "2026-10-20T14:00:00Z",
+  "comment": "Draft: clarified wording of 1.3, added \"Consumer groups\" to 5.2.",
+  "grading": [
+    {
+      "grade": "A",
+      "min_percent": 80
+    },
+    {
+      "grade": "B",
+      "min_percent": 60
+    },
+    {
+      "grade": "C",
+      "min_percent": 40
+    },
+    {
+      "grade": "D",
+      "min_percent": 20
+    },
+    {
+      "grade": "E",
+      "min_percent": 0
+    }
+  ],
+  "topics": [
+    {
+      "id": "Products and management",
+      "name": "Products and management"
+    },
+    {
+      "id": "Marketing",
+      "name": "Marketing"
+    },
+    {
+      "id": "Workforce",
+      "name": "Workforce"
+    },
+    {
+      "id": "Labelling",
+      "name": "Labelling"
+    },
+    {
+      "id": "Engagement",
+      "name": "Engagement"
+    }
+  ],
+  "questions": [
+    {
+      "topic": "Products and management",
+      "question": "Does your company have a written nutrition strategy or a commitment to healthier products?",
+      "question_id": "1.1",
+      "info": "A nutrition strategy is any document that states what the company wants to change about the nutritional quality of what it sells, by when, and who is responsible.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-01",
+            "recommandation": "Keep the strategy alive: review targets once a year with senior management and publish a short progress note so customers and partners can follow it."
+          },
+          {
+            "score": 2.5,
+            "x_id": "R-02",
+            "recommandation": "Take the draft to senior management for sign-off. A one-page summary with three measurable targets and an owner for each is usually enough to get a decision."
+          },
+          {
+            "score": 0,
+            "x_id": "R-03",
+            "recommandation": "Start with a one-page nutrition commitment: which products you will improve, what you will measure (for example sugar or salt per 100 g) and who is accountable. It does not need to be long to be useful."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Yes, approved by senior management",
+            "score": 5
+          },
+          {
+            "proposition": "Yes, in draft",
+            "score": 2.5
+          },
+          {
+            "proposition": "No",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Products and management",
+      "question": "Which areas does your nutrition strategy cover?",
+      "question_id": "1.2",
+      "info": "Tick everything the current document mentions, even if work has not started yet.",
+      "dependency": "1.1",
+      "recommandations": {
+        "type": "fixed",
+        "x_id": "R-04",
+        "recommandation": "The most useful strategies cover both the product (reformulation, portion size, affordable healthier lines) and the system around it (monitoring and public reporting). Add one area per year rather than all at once."
+      },
+      "propositions": {
+        "type": "choices",
+        "count_score_map": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "none_of_the_above": true,
+        "propositions": [
+          "Reformulation targets (sugar, salt, fat)",
+          "Fortification with vitamins or minerals",
+          "Portion and pack sizes",
+          "Affordable healthier product lines",
+          "Monitoring and public reporting"
+        ]
+      }
+    },
+    {
+      "topic": "Products and management",
+      "question": "What share of your products has been assessed with a recognised nutrient profiling model in the last three years?",
+      "question_id": "1.3",
+      "info": "A nutrient profiling model is a published method that classifies foods by nutritional quality, for example a front-of-pack scoring scheme recognised in your market.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-05",
+            "recommandation": "You already know the nutritional profile of your whole range. Use it: set a target share of sales from products that meet the healthier threshold and track it quarterly."
+          },
+          {
+            "score": 2.5,
+            "x_id": "R-06",
+            "recommandation": "Profile the remaining products, starting with the best sellers. A spreadsheet with nutrients per 100 g is enough to apply most profiling models."
+          },
+          {
+            "score": 0,
+            "x_id": "R-07",
+            "recommandation": "Pick one published nutrient profiling model and run your five best-selling products through it. This takes a day and shows where reformulation would pay off most."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "All or most products",
+            "score": 5
+          },
+          {
+            "proposition": "Some products",
+            "score": 2.5
+          },
+          {
+            "proposition": "None",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Products and management",
+      "question": "Describe the most recent change you made to improve the nutritional quality of a product.",
+      "question_id": "1.4",
+      "info": "Free text. This answer does not affect the score; it helps the reviewer understand your context.",
+      "recommandations": {
+        "type": "fixed",
+        "x_id": "R-08",
+        "recommandation": "Document each reformulation with before-and-after nutrient values per 100 g. A simple log makes it easier to report progress and to answer questions from retailers, regulators and investors."
+      },
+      "propositions": {
+        "type": "text",
+        "proposition": "For example: reduced added sugar in a breakfast cereal from 22 g to 15 g per 100 g in 2025."
+      }
+    },
+    {
+      "topic": "Marketing",
+      "question": "Does your company have a responsible marketing policy that covers marketing to children?",
+      "question_id": "2.1",
+      "info": "A responsible marketing policy sets rules for how products are promoted, including which products may be advertised to children and through which channels.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-09",
+            "recommandation": "Publish the policy on your website and brief your agencies on it. A policy that partners can read is far easier to apply consistently."
+          },
+          {
+            "score": 0,
+            "x_id": "R-10",
+            "recommandation": "Adopt a short responsible marketing policy. Decide which products may be marketed to children, which channels are covered and which age threshold applies, then share it with your agencies."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Yes",
+            "score": 5
+          },
+          {
+            "proposition": "No",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Marketing",
+      "question": "Which age threshold does the policy use to define a child?",
+      "question_id": "2.2",
+      "info": "Shown only if you answered Yes to the previous question.",
+      "dependency": "2.1",
+      "x_dependency_answer": "Yes",
+      "recommandations": null,
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Under 18",
+            "score": 5
+          },
+          {
+            "proposition": "Under 16",
+            "score": 4
+          },
+          {
+            "proposition": "Under 13",
+            "score": 2.5
+          },
+          {
+            "proposition": "No age threshold is defined",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Marketing",
+      "question": "Which marketing channels does the policy cover?",
+      "question_id": "2.3",
+      "info": "Shown only when the policy and its age threshold have been described.",
+      "dependency": "2.2",
+      "recommandations": {
+        "type": "fixed",
+        "x_id": "R-11",
+        "recommandation": "Extend the policy to every channel where children can see your brand, especially digital and social media, schools and sports sponsorship. Channels not named in the policy are usually the ones where problems appear."
+      },
+      "propositions": {
+        "type": "choices",
+        "count_score_coeff": 1,
+        "propositions": [
+          "Television and radio",
+          "Digital and social media",
+          "Schools and sports sponsorship",
+          "Packaging and in-store promotion",
+          "Influencers and brand ambassadors"
+        ]
+      }
+    },
+    {
+      "topic": "Marketing",
+      "question": "Is compliance with your marketing rules checked?",
+      "question_id": "2.4",
+      "info": "An internal review means a colleague checks campaigns against the rules; an independent audit means an external party does it and reports the findings.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-12",
+            "recommandation": "Publish a summary of the audit findings, including any breaches and how they were corrected. Transparency about mistakes builds more trust than a clean report."
+          },
+          {
+            "score": 2.5,
+            "x_id": "R-13",
+            "recommandation": "Move from internal review to an independent audit at least every two years. Independent checks catch channel-specific issues that internal teams tend to miss."
+          },
+          {
+            "score": 0,
+            "x_id": "R-14",
+            "recommandation": "Introduce a simple compliance review: once a quarter, check a sample of campaigns against your marketing rules and record the outcome."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Yes, by an independent audit",
+            "score": 5
+          },
+          {
+            "proposition": "Yes, by internal review",
+            "score": 2.5
+          },
+          {
+            "proposition": "No",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Workforce",
+      "question": "Does your company run a workforce nutrition programme for its employees?",
+      "question_id": "3.1",
+      "info": "Examples: healthy meals or snacks at work, nutrition education sessions, breastfeeding support, basic health checks.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-15",
+            "recommandation": "Measure what the programme changes: participation, meal uptake and employee feedback. Numbers make it easier to defend the budget and to extend the programme to contractors."
+          },
+          {
+            "score": 2.5,
+            "x_id": "R-16",
+            "recommandation": "Extend the programme to the remaining sites. Start with the elements that cost least to replicate, such as healthier canteen options and education sessions."
+          },
+          {
+            "score": 0,
+            "x_id": "R-17",
+            "recommandation": "Pilot a workforce nutrition programme at one site: a healthier canteen menu and two education sessions a year is a realistic first step for most companies."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Yes, at all sites",
+            "score": 5
+          },
+          {
+            "proposition": "Yes, at some sites",
+            "score": 2.5
+          },
+          {
+            "proposition": "No",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Workforce",
+      "question": "Which elements does your workforce programme include, if any?",
+      "question_id": "3.2",
+      "info": "Tick all that apply. Choose 'None of the above' if you have no programme.",
+      "recommandations": {
+        "type": "fixed",
+        "x_id": "R-18",
+        "recommandation": "Programmes that combine food at work with education and breastfeeding support show the most consistent results. Add one element at a time and ask employees which one they would value next."
+      },
+      "propositions": {
+        "type": "choices",
+        "count_score_map": [
+          0,
+          1.25,
+          2.5,
+          3.75,
+          5
+        ],
+        "none_of_the_above": true,
+        "propositions": [
+          "Healthier food or snacks at work",
+          "Nutrition education for employees",
+          "Breastfeeding support (time, space)",
+          "Basic health or nutrition checks"
+        ]
+      }
+    },
+    {
+      "topic": "Labelling",
+      "question": "Do your products carry a full back-of-pack nutrient declaration?",
+      "question_id": "4.1",
+      "info": "A full declaration lists at least energy, fat, saturated fat, carbohydrate, sugars, protein and salt per 100 g or 100 ml.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-19",
+            "recommandation": "Check that the declared values are verified by laboratory analysis or a recognised database at least every two years, and keep the evidence on file."
+          },
+          {
+            "score": 2.5,
+            "x_id": "R-20",
+            "recommandation": "Complete the nutrient declaration for the remaining products. Start with products sold to children and with the best sellers."
+          },
+          {
+            "score": 0,
+            "x_id": "R-21",
+            "recommandation": "Add a full nutrient declaration to every product. Most national rules require it, and it is the basis for every other labelling and reformulation step."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Yes, all products",
+            "score": 5
+          },
+          {
+            "proposition": "Most products",
+            "score": 2.5
+          },
+          {
+            "proposition": "Few or none",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Labelling",
+      "question": "Which front-of-pack information do you provide?",
+      "question_id": "4.2",
+      "info": "Front-of-pack information helps shoppers compare products quickly without reading the full nutrient table.",
+      "recommandations": {
+        "type": "fixed",
+        "x_id": "R-22",
+        "recommandation": "Where a national front-of-pack scheme exists, adopt it on all eligible products. Where none exists yet, start with clear allergen highlighting and a policy that limits health and nutrition claims to products that meet a recognised threshold."
+      },
+      "propositions": {
+        "type": "choices",
+        "count_score_coeff": 1.25,
+        "propositions": [
+          "An interpretive front-of-pack label",
+          "Per-portion energy or nutrient information",
+          "A policy limiting health and nutrition claims",
+          "Clear allergen highlighting"
+        ]
+      }
+    },
+    {
+      "topic": "Engagement",
+      "question": "Does your company take part in national nutrition policy processes, such as consultations or standards committees?",
+      "question_id": "5.1",
+      "info": "If yes, you can briefly describe which processes.",
+      "recommandations": {
+        "type": "scored",
+        "recommandations": [
+          {
+            "score": 5,
+            "x_id": "R-23",
+            "recommandation": "Make your positions public: a short statement on your website about what you support (for example front-of-pack labelling or reformulation targets) shows that engagement is constructive."
+          },
+          {
+            "score": 0,
+            "x_id": "R-24",
+            "recommandation": "Join at least one public consultation or standards committee relevant to your products in the next year. Industry associations can usually tell you which ones are open."
+          }
+        ]
+      },
+      "propositions": {
+        "type": "option",
+        "propositions": [
+          {
+            "proposition": "Yes",
+            "score": 5,
+            "text_inputs": true
+          },
+          {
+            "proposition": "No",
+            "score": 0
+          }
+        ]
+      }
+    },
+    {
+      "topic": "Engagement",
+      "question": "Which stakeholders do you engage with on nutrition topics?",
+      "question_id": "5.2",
+      "info": "Tick all that apply.",
+      "recommandations": null,
+      "propositions": {
+        "type": "choices",
+        "count_score_map": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          5
+        ],
+        "none_of_the_above": true,
+        "propositions": [
+          "Government ministries or agencies",
+          "Industry associations",
+          "Civil society organisations",
+          "Research institutions",
+          "Investors and lenders",
+          "Consumer groups"
+        ]
+      }
+    }
+  ],
+  "roadmap_rules": [
+    {
+      "id": "RR-01",
+      "question_id": "1.1",
+      "score_eq": 0,
+      "phase": "now",
+      "priority": "high",
+      "effort": "medium",
+      "rec_id": "R-03",
+      "title": "Write and approve a nutrition commitment"
+    },
+    {
+      "id": "RR-02",
+      "question_id": "1.1",
+      "score_eq": 2.5,
+      "phase": "next",
+      "priority": "medium",
+      "effort": "low",
+      "rec_id": "R-02",
+      "title": "Get the draft strategy approved"
+    },
+    {
+      "id": "RR-03",
+      "question_id": "1.2",
+      "max_share": 0.6,
+      "phase": "next",
+      "priority": "medium",
+      "effort": "medium",
+      "rec_id": "R-04",
+      "title": "Extend what the strategy covers"
+    },
+    {
+      "id": "RR-04",
+      "question_id": "1.3",
+      "score_eq": 0,
+      "phase": "now",
+      "priority": "high",
+      "effort": "medium",
+      "rec_id": "R-07",
+      "title": "Profile your best-selling products"
+    },
+    {
+      "id": "RR-05",
+      "question_id": "1.3",
+      "score_eq": 2.5,
+      "phase": "next",
+      "priority": "medium",
+      "effort": "medium",
+      "rec_id": "R-06",
+      "title": "Profile the rest of the range"
+    },
+    {
+      "id": "RR-06",
+      "question_id": "2.1",
+      "score_eq": 0,
+      "phase": "now",
+      "priority": "high",
+      "effort": "low",
+      "rec_id": "R-10",
+      "title": "Adopt a responsible marketing policy"
+    },
+    {
+      "id": "RR-07",
+      "question_id": "2.3",
+      "max_share": 0.6,
+      "phase": "next",
+      "priority": "medium",
+      "effort": "low",
+      "rec_id": "R-11",
+      "title": "Cover more marketing channels"
+    },
+    {
+      "id": "RR-08",
+      "question_id": "2.4",
+      "score_eq": 0,
+      "phase": "next",
+      "priority": "medium",
+      "effort": "medium",
+      "rec_id": "R-14",
+      "title": "Introduce a compliance review"
+    },
+    {
+      "id": "RR-09",
+      "question_id": "2.4",
+      "score_eq": 2.5,
+      "phase": "later",
+      "priority": "low",
+      "effort": "high",
+      "rec_id": "R-13",
+      "title": "Move to an independent audit"
+    },
+    {
+      "id": "RR-10",
+      "question_id": "3.1",
+      "score_eq": 0,
+      "phase": "next",
+      "priority": "medium",
+      "effort": "medium",
+      "rec_id": "R-17",
+      "title": "Pilot a workforce nutrition programme"
+    },
+    {
+      "id": "RR-11",
+      "question_id": "3.2",
+      "max_share": 0.5,
+      "phase": "later",
+      "priority": "low",
+      "effort": "medium",
+      "rec_id": "R-18",
+      "title": "Broaden the workforce programme"
+    },
+    {
+      "id": "RR-12",
+      "question_id": "4.1",
+      "max_share": 0.5,
+      "phase": "now",
+      "priority": "high",
+      "effort": "medium",
+      "rec_id": "R-21",
+      "title": "Complete nutrient declarations"
+    },
+    {
+      "id": "RR-13",
+      "question_id": "4.2",
+      "max_share": 0.5,
+      "phase": "later",
+      "priority": "medium",
+      "effort": "high",
+      "rec_id": "R-22",
+      "title": "Add front-of-pack information"
+    },
+    {
+      "id": "RR-14",
+      "question_id": "5.1",
+      "score_eq": 0,
+      "phase": "later",
+      "priority": "low",
+      "effort": "low",
+      "rec_id": "R-24",
+      "title": "Join a policy consultation"
+    }
+  ],
+  "translations": {
+    "sw": {
+      "topics": {
+        "Products and management": "Bidhaa na usimamizi",
+        "Marketing": "Masoko",
+        "Workforce": "Wafanyakazi",
+        "Labelling": "Uwekaji lebo",
+        "Engagement": "Ushirikiano"
+      },
+      "questions": {
+        "1.1": {
+          "question": "Je, kampuni yako ina mkakati wa lishe ulioandikwa au ahadi ya bidhaa bora zaidi kiafya?",
+          "info": "Mkakati wa lishe ni hati yoyote inayoeleza kampuni inataka kubadilisha nini kuhusu ubora wa lishe wa bidhaa zake, kufikia lini, na nani anawajibika.",
+          "propositions": [
+            "Ndiyo, umeidhinishwa na uongozi wa juu",
+            "Ndiyo, bado ni rasimu",
+            "Hapana"
+          ]
+        },
+        "1.2": {
+          "question": "Mkakati wako wa lishe unahusu maeneo gani?",
+          "info": "Chagua kila kitu kilichotajwa katika hati ya sasa, hata kama kazi haijaanza.",
+          "propositions": [
+            "Malengo ya kubadilisha viambato (sukari, chumvi, mafuta)",
+            "Kuongeza vitamini au madini",
+            "Ukubwa wa vifungashio na sehemu",
+            "Bidhaa bora zaidi kiafya kwa bei nafuu",
+            "Ufuatiliaji na kutoa ripoti hadharani"
+          ]
+        },
+        "1.4": {
+          "question": "Eleza mabadiliko ya hivi karibuni uliyofanya ili kuboresha ubora wa lishe wa bidhaa.",
+          "info": "Maandishi huru. Jibu hili haliathiri alama; linamsaidia mkaguzi kuelewa muktadha wako.",
+          "text_proposition": "Kwa mfano: kupunguza sukari iliyoongezwa kwenye nafaka ya kifungua kinywa kutoka g 22 hadi g 15 kwa g 100 mwaka 2025."
+        },
+        "2.1": {
+          "question": "Je, kampuni yako ina sera ya masoko yenye uwajibikaji inayohusu masoko kwa watoto?",
+          "info": "Sera ya masoko yenye uwajibikaji inaweka sheria za jinsi bidhaa zinavyotangazwa, ikiwa ni pamoja na bidhaa zipi zinaweza kutangazwa kwa watoto na kupitia njia zipi.",
+          "propositions": [
+            "Ndiyo",
+            "Hapana"
+          ]
+        },
+        "2.2": {
+          "question": "Sera inatumia kikomo gani cha umri kumfafanua mtoto?",
+          "info": "Linaonyeshwa tu ikiwa ulijibu Ndiyo kwa swali lililopita.",
+          "propositions": [
+            "Chini ya miaka 18",
+            "Chini ya miaka 16",
+            "Chini ya miaka 13",
+            "Hakuna kikomo cha umri kilichowekwa"
+          ]
+        },
+        "2.3": {
+          "question": "Sera inahusu njia zipi za masoko?",
+          "info": "Linaonyeshwa tu baada ya sera na kikomo chake cha umri kuelezwa.",
+          "propositions": [
+            "Televisheni na redio",
+            "Mitandao ya kidijitali na kijamii",
+            "Shule na udhamini wa michezo",
+            "Vifungashio na matangazo dukani",
+            "Washawishi na mabalozi wa chapa"
+          ]
+        },
+        "2.4": {
+          "question": "Je, ufuasi wa sheria zako za masoko hukaguliwa?",
+          "info": "Ukaguzi wa ndani unamaanisha mfanyakazi mwenzako anakagua kampeni dhidi ya sheria; ukaguzi huru unamaanisha mtu wa nje anafanya hivyo na kutoa ripoti.",
+          "propositions": [
+            "Ndiyo, kwa ukaguzi huru",
+            "Ndiyo, kwa ukaguzi wa ndani",
+            "Hapana"
+          ]
+        },
+        "3.1": {
+          "question": "Je, kampuni yako inaendesha programu ya lishe kwa wafanyakazi wake?",
+          "info": "Mifano: milo au vitafunio vyenye afya kazini, vipindi vya elimu ya lishe, msaada wa kunyonyesha, uchunguzi wa kimsingi wa afya.",
+          "propositions": [
+            "Ndiyo, katika maeneo yote",
+            "Ndiyo, katika baadhi ya maeneo",
+            "Hapana"
+          ]
+        },
+        "3.2": {
+          "question": "Programu yako ya wafanyakazi inajumuisha vipengele gani, kama vipo?",
+          "info": "Chagua vyote vinavyohusika. Chagua 'Hakuna kati ya hivi' ikiwa huna programu.",
+          "propositions": [
+            "Chakula au vitafunio vyenye afya kazini",
+            "Elimu ya lishe kwa wafanyakazi",
+            "Msaada wa kunyonyesha (muda, nafasi)",
+            "Uchunguzi wa kimsingi wa afya au lishe"
+          ]
+        },
+        "4.1": {
+          "question": "Je, bidhaa zako zina tamko kamili la virutubisho nyuma ya kifungashio?",
+          "info": "Tamko kamili linaorodhesha angalau nishati, mafuta, mafuta yaliyojaa, wanga, sukari, protini na chumvi kwa g 100 au ml 100.",
+          "propositions": [
+            "Ndiyo, bidhaa zote",
+            "Bidhaa nyingi",
+            "Chache au hakuna"
+          ]
+        },
+        "4.2": {
+          "question": "Unatoa taarifa gani mbele ya kifungashio?",
+          "info": "Taarifa mbele ya kifungashio huwasaidia wanunuzi kulinganisha bidhaa haraka bila kusoma jedwali kamili la virutubisho.",
+          "propositions": [
+            "Lebo ya tafsiri mbele ya kifungashio",
+            "Taarifa za nishati au virutubisho kwa kila sehemu",
+            "Sera inayodhibiti madai ya afya na lishe",
+            "Kuonyesha wazi vizio (allergens)"
+          ]
+        },
+        "5.1": {
+          "question": "Je, kampuni yako inashiriki katika michakato ya sera ya lishe ya kitaifa, kama vile mashauriano au kamati za viwango?",
+          "info": "Ikiwa ndiyo, unaweza kueleza kwa ufupi michakato ipi.",
+          "propositions": [
+            "Ndiyo",
+            "Hapana"
+          ]
+        },
+        "5.2": {
+          "question": "Unashirikiana na wadau gani kuhusu masuala ya lishe?",
+          "info": "Chagua vyote vinavyohusika.",
+          "propositions": [
+            "Wizara au mashirika ya serikali",
+            "Vyama vya wafanyabiashara",
+            "Asasi za kiraia",
+            "Taasisi za utafiti",
+            "Wawekezaji na wakopeshaji",
+            "Vikundi vya walaji"
+          ]
+        }
+      },
+      "recommendations": {
+        "R-01": "Weka mkakati hai: pitia malengo mara moja kwa mwaka na uongozi wa juu na uchapishe taarifa fupi ya maendeleo ili wateja na washirika waweze kuifuatilia.",
+        "R-03": "Anza na ahadi ya lishe ya ukurasa mmoja: bidhaa zipi utaboresha, utapima nini (kwa mfano sukari au chumvi kwa g 100) na nani anawajibika. Si lazima iwe ndefu ili iwe na manufaa.",
+        "R-04": "Mikakati yenye manufaa zaidi inahusu bidhaa (kubadilisha viambato, ukubwa wa sehemu, bidhaa bora kwa bei nafuu) na mfumo unaoizunguka (ufuatiliaji na kutoa ripoti hadharani). Ongeza eneo moja kwa mwaka badala ya yote mara moja.",
+        "R-07": "Chagua mfumo mmoja uliochapishwa wa kupima ubora wa lishe na upitishe bidhaa zako tano zinazouzwa zaidi. Hii inachukua siku moja na inaonyesha wapi kubadilisha viambato kutaleta faida zaidi.",
+        "R-10": "Pitisha sera fupi ya masoko yenye uwajibikaji. Amua bidhaa zipi zinaweza kutangazwa kwa watoto, njia zipi zinahusika na kikomo gani cha umri kinatumika, kisha ishirikishe na mawakala wako.",
+        "R-11": "Panua sera kwa kila njia ambapo watoto wanaweza kuona chapa yako, hasa mitandao ya kidijitali na kijamii, shule na udhamini wa michezo.",
+        "R-14": "Anzisha ukaguzi rahisi wa ufuasi: mara moja kwa robo mwaka, kagua sampuli ya kampeni dhidi ya sheria zako za masoko na urekodi matokeo.",
+        "R-17": "Jaribu programu ya lishe kwa wafanyakazi katika eneo moja: menyu bora ya mkahawa wa kazini na vipindi viwili vya elimu kwa mwaka ni hatua ya kwanza inayowezekana kwa kampuni nyingi.",
+        "R-18": "Programu zinazochanganya chakula kazini na elimu na msaada wa kunyonyesha zinaonyesha matokeo thabiti zaidi. Ongeza kipengele kimoja kwa wakati.",
+        "R-21": "Ongeza tamko kamili la virutubisho kwenye kila bidhaa. Sheria nyingi za kitaifa zinalihitaji, na ni msingi wa kila hatua nyingine ya uwekaji lebo na kubadilisha viambato.",
+        "R-22": "Pale ambapo mpango wa kitaifa wa lebo za mbele ya kifungashio upo, utumie kwenye bidhaa zote zinazostahili. Pale ambapo haupo, anza na kuonyesha wazi vizio na sera inayodhibiti madai ya afya.",
+        "R-24": "Jiunge na angalau mashauriano moja ya umma au kamati ya viwango inayohusiana na bidhaa zako katika mwaka ujao."
+      },
+      "roadmap_titles": {
+        "RR-01": "Andika na uidhinishe ahadi ya lishe",
+        "RR-02": "Pata idhini ya rasimu ya mkakati",
+        "RR-03": "Panua maeneo yanayohusishwa na mkakati",
+        "RR-04": "Pima bidhaa zako zinazouzwa zaidi",
+        "RR-05": "Pima bidhaa zilizobaki",
+        "RR-06": "Pitisha sera ya masoko yenye uwajibikaji",
+        "RR-07": "Husisha njia zaidi za masoko",
+        "RR-08": "Anzisha ukaguzi wa ufuasi",
+        "RR-09": "Hamia kwenye ukaguzi huru",
+        "RR-10": "Jaribu programu ya lishe kwa wafanyakazi",
+        "RR-11": "Panua programu ya wafanyakazi",
+        "RR-12": "Kamilisha matamko ya virutubisho",
+        "RR-13": "Ongeza taarifa mbele ya kifungashio",
+        "RR-14": "Jiunge na mashauriano ya sera"
+      }
+    }
+  },
+  "based_on": "v1.0"
+}

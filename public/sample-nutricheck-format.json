@@ -1,0 +1,431 @@
+[
+  {
+    "topic": "Products and management",
+    "question": "Does your company have a written nutrition strategy or a commitment to healthier products?",
+    "question_id": "1.1",
+    "info": "A nutrition strategy is any document that states what the company wants to change about the nutritional quality of what it sells, by when, and who is responsible.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "Keep the strategy alive: review targets once a year with senior management and publish a short progress note so customers and partners can follow it."
+        },
+        {
+          "score": 2.5,
+          "recommandation": "Take the draft to senior management for sign-off. A one-page summary with three measurable targets and an owner for each is usually enough to get a decision."
+        },
+        {
+          "score": 0,
+          "recommandation": "Start with a one-page nutrition commitment: which products you will improve, what you will measure (for example sugar or salt per 100 g) and who is accountable. It does not need to be long to be useful."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Yes, approved by senior management",
+          "score": 5
+        },
+        {
+          "proposition": "Yes, in draft",
+          "score": 2.5
+        },
+        {
+          "proposition": "No",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Products and management",
+    "question": "Which areas does your nutrition strategy cover?",
+    "question_id": "1.2",
+    "info": "Tick everything the current document mentions, even if work has not started yet.",
+    "dependency": "1.1",
+    "recommandations": {
+      "type": "fixed",
+      "recommandation": "The most useful strategies cover both the product (reformulation, portion size, affordable healthier lines) and the system around it (monitoring and public reporting). Add one area per year rather than all at once."
+    },
+    "propositions": {
+      "type": "choices",
+      "count_score_map": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "none_of_the_above": true,
+      "propositions": [
+        "Reformulation targets (sugar, salt, fat)",
+        "Fortification with vitamins or minerals",
+        "Portion and pack sizes",
+        "Affordable healthier product lines",
+        "Monitoring and public reporting"
+      ]
+    }
+  },
+  {
+    "topic": "Products and management",
+    "question": "What share of your products has been assessed with a nutrient profiling model?",
+    "question_id": "1.3",
+    "info": "A nutrient profiling model is a published method that classifies foods by nutritional quality, for example a front-of-pack scoring scheme recognised in your market.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "You already know the nutritional profile of your whole range. Use it: set a target share of sales from products that meet the healthier threshold and track it quarterly."
+        },
+        {
+          "score": 2.5,
+          "recommandation": "Profile the remaining products, starting with the best sellers. A spreadsheet with nutrients per 100 g is enough to apply most profiling models."
+        },
+        {
+          "score": 0,
+          "recommandation": "Pick one published nutrient profiling model and run your five best-selling products through it. This takes a day and shows where reformulation would pay off most."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "All or most products",
+          "score": 5
+        },
+        {
+          "proposition": "Some products",
+          "score": 2.5
+        },
+        {
+          "proposition": "None",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Products and management",
+    "question": "Describe the most recent change you made to improve the nutritional quality of a product.",
+    "question_id": "1.4",
+    "info": "Free text. This answer does not affect the score; it helps the reviewer understand your context.",
+    "recommandations": {
+      "type": "fixed",
+      "recommandation": "Document each reformulation with before-and-after nutrient values per 100 g. A simple log makes it easier to report progress and to answer questions from retailers, regulators and investors."
+    },
+    "propositions": {
+      "type": "text",
+      "proposition": "For example: reduced added sugar in a breakfast cereal from 22 g to 15 g per 100 g in 2025."
+    }
+  },
+  {
+    "topic": "Marketing",
+    "question": "Does your company have a responsible marketing policy that covers marketing to children?",
+    "question_id": "2.1",
+    "info": "A responsible marketing policy sets rules for how products are promoted, including which products may be advertised to children and through which channels.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "Publish the policy on your website and brief your agencies on it. A policy that partners can read is far easier to apply consistently."
+        },
+        {
+          "score": 0,
+          "recommandation": "Adopt a short responsible marketing policy. Decide which products may be marketed to children, which channels are covered and which age threshold applies, then share it with your agencies."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Yes",
+          "score": 5
+        },
+        {
+          "proposition": "No",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Marketing",
+    "question": "Which age threshold does the policy use to define a child?",
+    "question_id": "2.2",
+    "info": "Shown only if you answered Yes to the previous question.",
+    "dependency": "2.1",
+    "recommandations": null,
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Under 18",
+          "score": 5
+        },
+        {
+          "proposition": "Under 16",
+          "score": 4
+        },
+        {
+          "proposition": "Under 13",
+          "score": 2.5
+        },
+        {
+          "proposition": "No age threshold is defined",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Marketing",
+    "question": "Which marketing channels does the policy cover?",
+    "question_id": "2.3",
+    "info": "Shown only when the policy and its age threshold have been described.",
+    "dependency": "2.2",
+    "recommandations": {
+      "type": "fixed",
+      "recommandation": "Extend the policy to every channel where children can see your brand, especially digital and social media, schools and sports sponsorship. Channels not named in the policy are usually the ones where problems appear."
+    },
+    "propositions": {
+      "type": "choices",
+      "count_score_coeff": 1,
+      "propositions": [
+        "Television and radio",
+        "Digital and social media",
+        "Schools and sports sponsorship",
+        "Packaging and in-store promotion",
+        "Influencers and brand ambassadors"
+      ]
+    }
+  },
+  {
+    "topic": "Marketing",
+    "question": "Is compliance with your marketing rules checked?",
+    "question_id": "2.4",
+    "info": "An internal review means a colleague checks campaigns against the rules; an independent audit means an external party does it and reports the findings.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "Publish a summary of the audit findings, including any breaches and how they were corrected. Transparency about mistakes builds more trust than a clean report."
+        },
+        {
+          "score": 0,
+          "recommandation": "Introduce a simple compliance review: once a quarter, check a sample of campaigns against your marketing rules and record the outcome."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Yes, by an independent audit",
+          "score": 5
+        },
+        {
+          "proposition": "Yes, by internal review",
+          "score": 2.5
+        },
+        {
+          "proposition": "No",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Workforce",
+    "question": "Does your company run a workforce nutrition programme for its employees?",
+    "question_id": "3.1",
+    "info": "Examples: healthy meals or snacks at work, nutrition education sessions, breastfeeding support, basic health checks.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "Measure what the programme changes: participation, meal uptake and employee feedback. Numbers make it easier to defend the budget and to extend the programme to contractors."
+        },
+        {
+          "score": 2.5,
+          "recommandation": "Extend the programme to the remaining sites. Start with the elements that cost least to replicate, such as healthier canteen options and education sessions."
+        },
+        {
+          "score": 0,
+          "recommandation": "Pilot a workforce nutrition programme at one site: a healthier canteen menu and two education sessions a year is a realistic first step for most companies."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Yes, at all sites",
+          "score": 5
+        },
+        {
+          "proposition": "Yes, at some sites",
+          "score": 2.5
+        },
+        {
+          "proposition": "No",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Workforce",
+    "question": "Which elements does your workforce programme include, if any?",
+    "question_id": "3.2",
+    "info": "Tick all that apply. Choose 'None of the above' if you have no programme.",
+    "recommandations": {
+      "type": "fixed",
+      "recommandation": "Programmes that combine food at work with education and breastfeeding support show the most consistent results. Add one element at a time and ask employees which one they would value next."
+    },
+    "propositions": {
+      "type": "choices",
+      "count_score_map": [
+        0,
+        1.25,
+        2.5,
+        3.75,
+        5
+      ],
+      "none_of_the_above": true,
+      "propositions": [
+        "Healthier food or snacks at work",
+        "Nutrition education for employees",
+        "Breastfeeding support (time, space)",
+        "Basic health or nutrition checks"
+      ]
+    }
+  },
+  {
+    "topic": "Labelling",
+    "question": "Do your products carry a full back-of-pack nutrient declaration?",
+    "question_id": "4.1",
+    "info": "A full declaration lists at least energy, fat, saturated fat, carbohydrate, sugars, protein and salt per 100 g or 100 ml.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "Check that the declared values are verified by laboratory analysis or a recognised database at least every two years, and keep the evidence on file."
+        },
+        {
+          "score": 2.5,
+          "recommandation": "Complete the nutrient declaration for the remaining products. Start with products sold to children and with the best sellers."
+        },
+        {
+          "score": 0,
+          "recommandation": "Add a full nutrient declaration to every product. Most national rules require it, and it is the basis for every other labelling and reformulation step."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Yes, all products",
+          "score": 5
+        },
+        {
+          "proposition": "Most products",
+          "score": 2.5
+        },
+        {
+          "proposition": "Few or none",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Labelling",
+    "question": "Which front-of-pack information do you provide?",
+    "question_id": "4.2",
+    "info": "Front-of-pack information helps shoppers compare products quickly without reading the full nutrient table.",
+    "recommandations": {
+      "type": "fixed",
+      "recommandation": "Where a national front-of-pack scheme exists, adopt it on all eligible products. Where none exists yet, start with clear allergen highlighting and a policy that limits health and nutrition claims to products that meet a recognised threshold."
+    },
+    "propositions": {
+      "type": "choices",
+      "count_score_coeff": 1.25,
+      "propositions": [
+        "An interpretive front-of-pack label",
+        "Per-portion energy or nutrient information",
+        "A policy limiting health and nutrition claims",
+        "Clear allergen highlighting"
+      ]
+    }
+  },
+  {
+    "topic": "Engagement",
+    "question": "Does your company take part in national nutrition policy processes, such as consultations or standards committees?",
+    "question_id": "5.1",
+    "info": "If yes, you can briefly describe which processes.",
+    "recommandations": {
+      "type": "scored",
+      "recommandations": [
+        {
+          "score": 5,
+          "recommandation": "Make your positions public: a short statement on your website about what you support (for example front-of-pack labelling or reformulation targets) shows that engagement is constructive."
+        },
+        {
+          "score": 0,
+          "recommandation": "Join at least one public consultation or standards committee relevant to your products in the next year. Industry associations can usually tell you which ones are open."
+        }
+      ]
+    },
+    "propositions": {
+      "type": "option",
+      "propositions": [
+        {
+          "proposition": "Yes",
+          "score": 5,
+          "text_inputs": true
+        },
+        {
+          "proposition": "No",
+          "score": 0
+        }
+      ]
+    }
+  },
+  {
+    "topic": "Engagement",
+    "question": "Which stakeholders do you engage with on nutrition topics?",
+    "question_id": "5.2",
+    "info": "Tick all that apply.",
+    "recommandations": null,
+    "propositions": {
+      "type": "choices",
+      "count_score_map": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "none_of_the_above": true,
+      "propositions": [
+        "Government ministries or agencies",
+        "Industry associations",
+        "Civil society organisations",
+        "Research institutions",
+        "Investors and lenders"
+      ]
+    }
+  }
+]
