@@ -8,6 +8,11 @@ for (const width of [1280, 360]) {
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  await page.goto('http://127.0.0.1:4173/#/');
+  if (process.env.ROLE) {
+    await page.getByRole('button', { name: 'Load sample answers' }).click().catch(() => {});
+    await page.getByLabel(/Demo role switcher/).selectOption(process.env.ROLE);
+  }
   for (const r of routes) {
     await page.goto(`http://127.0.0.1:4173/#${r}`);
     await page.waitForTimeout(400);
