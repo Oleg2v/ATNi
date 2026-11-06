@@ -204,7 +204,7 @@ dialog::backdrop { background: rgba(20, 25, 22, 0.45); }
 .phase-now { border-top-color: var(--danger); }
 .phase-next { border-top-color: var(--warn); }
 .phase-later { border-top-color: var(--accent); }
-.bar-chart text { font-size: 11px; fill: var(--text-2); }
+.bar-chart text { font-size: 12px; fill: var(--text-2); }
 .tour-highlight { outline: 4px solid var(--focus); outline-offset: 4px; border-radius: 4px; }
 .tour-box { position: fixed; z-index: 400; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 14px 16px; width: min(380px, calc(100vw - 32px)); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25); }
 .role-badge { font-size: 0.8rem; padding: 2px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); border: 1px dashed var(--warn); }

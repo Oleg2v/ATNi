@@ -212,7 +212,8 @@ export function useCreateDraft(): (srcId: string) => void {
   return (srcId: string) => {
     const src = state.versions.find((v) => v.id === srcId);
     if (!src) return;
-    const id = nextVersionId(state.versions);
+    const suffix = src.country === '*' ? '' : `-${src.country}`;
+    const id = nextVersionId(state.versions.filter((v) => (src.country === '*' ? v.country === '*' : v.country === src.country)), suffix);
     const draft = cloneAsDraft(src, id, now(), `Draft created from ${src.id}.`);
     update((s) => ({ ...s, versions: [...s.versions, draft] }));
     log('create-draft', id, `Draft created from ${src.id}.`);

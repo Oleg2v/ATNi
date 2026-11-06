@@ -189,6 +189,7 @@ export function PolicyPage() {
             )}
             unit="%"
             max={100}
+            caption={v.indicator}
           />
         </section>
       </div>

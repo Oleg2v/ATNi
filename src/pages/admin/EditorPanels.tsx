@@ -135,7 +135,9 @@ function ChangeRow({ c }: { c: Change }) {
 /* ---------- Impact preview ---------- */
 
 export function impactFor(assessments: Assessment[], base: MethodologyVersion, version: MethodologyVersion): ImpactReport {
-  return computeImpact(assessments.filter((a) => a.completed_at && a.version_id === base.id), base, version);
+  // a country-specific version only ever applies to that country's assessments
+  const scoped = version.country === '*' ? assessments : assessments.filter((a) => a.country === version.country);
+  return computeImpact(scoped.filter((a) => a.completed_at && a.version_id === base.id), base, version);
 }
 
 export function ImpactSummary({ impact, base }: { impact: ImpactReport; base: MethodologyVersion }) {
@@ -157,7 +159,7 @@ export function ImpactSection({ version, base, assessments, loading }: { version
   return (
     <section className="card" aria-labelledby="impact-h">
       <h2 id="impact-h" style={{ marginTop: 0 }}>Impact on past assessments</h2>
-      <p className="small muted">Preview only: past results are never rewritten. Re-scores the stored answers of every completed assessment on {base?.id ?? 'the base version'} with this version.</p>
+      <p className="small muted">Preview only: past results are never rewritten. Re-scores the stored answers of every completed assessment on {base?.id ?? 'the base version'}{version.country !== '*' ? ` from ${version.country}` : ''} with this version.</p>
       <button type="button" className="btn" onClick={run} disabled={!base || loading}>{loading ? 'Loading assessments…' : 'Preview impact on past assessments'}</button>
       {impact && base && (
         <div style={{ marginTop: 12 }}>

@@ -74,7 +74,9 @@ export function EditorPage({ id }: { id: string }) {
   const others = state.versions.filter((v) => v.id !== version.id);
   const defaultBaseId = compareParam ?? version.based_on ?? state.versions.find((v) => v.status === 'published' && v.id !== version.id && v.country === version.country)?.id ?? others[0]?.id ?? null;
   const base = state.versions.find((v) => v.id === (compareId ?? defaultBaseId)) ?? null;
-  const publishBase = state.versions.find((v) => v.status === 'published' && v.country === version.country && v.id !== version.id) ?? (version.based_on ? state.versions.find((v) => v.id === version.based_on) ?? null : null);
+  // what publishing replaces: the published version for the SAME scope; a first country copy replaces nothing (impact is still previewed against the version it was copied from)
+  const replaces = state.versions.find((v) => v.status === 'published' && v.country === version.country && v.id !== version.id) ?? null;
+  const publishBase = replaces ?? (version.based_on ? state.versions.find((v) => v.id === version.based_on) ?? null : null);
   const blocking = report.issues.filter((i) => i.severity === 'error');
   const mayPublish = can.publish(role) && version.status === 'draft';
   const publishable = mayPublish && report.publishable;
