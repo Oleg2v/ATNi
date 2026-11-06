@@ -60,7 +60,7 @@ table { border-collapse: collapse; width: 100%; font-size: 0.925rem; }
 th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
 th { color: var(--text-2); font-weight: 600; background: var(--surface-2); }
 caption { text-align: left; font-weight: 600; padding: 6px 0; color: var(--text-2); }
-.table-wrap { overflow-x: auto; }
+.table-wrap { overflow-x: auto; position: relative; }
 .num { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* focus */
