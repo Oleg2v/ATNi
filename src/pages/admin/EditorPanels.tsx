@@ -274,7 +274,7 @@ export function RulesSection({ version }: { version: MethodologyVersion }) {
 
 /* ---------- Publish dialog ---------- */
 
-export function PublishDialog({ open, onClose, version, base, report, assessments, loading, onPublish }: { open: boolean; onClose: () => void; version: MethodologyVersion; base: MethodologyVersion | null; report: ValidationReport; assessments: Assessment[]; loading: boolean; onPublish: (comment: string, summary: string) => void }) {
+export function PublishDialog({ open, onClose, version, base, replaces, report, assessments, loading, onPublish }: { open: boolean; onClose: () => void; version: MethodologyVersion; base: MethodologyVersion | null; replaces?: MethodologyVersion | null; report: ValidationReport; assessments: Assessment[]; loading: boolean; onPublish: (comment: string, summary: string) => void }) {
   const [comment, setComment] = useState('');
   const [ack, setAck] = useState(false);
   const [tried, setTried] = useState(false);
@@ -309,7 +309,7 @@ export function PublishDialog({ open, onClose, version, base, report, assessment
           <dt>Country</dt>
           <dd>{version.country === '*' ? 'all countries without a country-specific version' : version.country}</dd>
           <dt>Replaces</dt>
-          <dd>{base ? `${base.id} (becomes archived)` : 'nothing: first version for this scope'}</dd>
+          <dd>{replaces ? `${replaces.id} (becomes archived)` : 'nothing: first version for this scope'}</dd>
           <dt>Changes</dt>
           <dd>{base ? `${diffCount} field-level changes vs ${base.id}` : '—'}</dd>
           <dt>Health</dt>

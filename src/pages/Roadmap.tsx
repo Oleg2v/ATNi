@@ -75,7 +75,7 @@ export function RoadmapPage() {
       {unanswered > 0 && (
         <Callout kind="warn">
           {lang === 'sw' ? `Maswali ${unanswered} hayakujibiwa, kwa hivyo hakuna hatua zilizotengenezwa kwa ajili yake. ` : `${unanswered} question${unanswered === 1 ? ' was' : 's were'} left unanswered, so no steps were generated for them. `}
-          <Link to="/assess">{lang === 'sw' ? 'Jibu ili kukamilisha ramani' : 'Answer them to complete the roadmap'}</Link>
+          <Link to={`/assess?from=${assessment.id}`}>{lang === 'sw' ? 'Jibu ili kukamilisha ramani' : 'Answer them to complete the roadmap'}</Link>
         </Callout>
       )}
       <div className="field no-print" style={{ maxWidth: 360 }}>

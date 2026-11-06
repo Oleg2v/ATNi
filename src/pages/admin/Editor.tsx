@@ -218,7 +218,7 @@ export function EditorPage({ id }: { id: string }) {
         <RulesSection version={version} />
       </div>
 
-      <PublishDialog open={publishOpen} onClose={() => setPublishOpen(false)} version={version} base={publishBase} report={report} assessments={assessments} loading={loading} onPublish={doPublish} />
+      <PublishDialog open={publishOpen} onClose={() => setPublishOpen(false)} version={version} base={publishBase} replaces={replaces} report={report} assessments={assessments} loading={loading} onPublish={doPublish} />
     </section>
   );
 }

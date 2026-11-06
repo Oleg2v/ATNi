@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { useStore } from '../store/index.tsx';
+import { can, useStore } from '../store/index.tsx';
+import { noAccessReason } from './Results.tsx';
 import { fmt, useLang, useT } from '../i18n/index.tsx';
 import { useViews } from '../i18n/views.ts';
 import { Link } from '../router/index.tsx';
@@ -60,6 +61,15 @@ export function AccountPage() {
     setConfirmDelete(false);
     toast(t.account.deleted);
   };
+
+  if (!can.viewAnswers(state.role)) {
+    return (
+      <div className="grid" style={{ gap: 20 }}>
+        <h1>{t.account.title}</h1>
+        <Callout kind="warn" role="status"><strong>{t.common.noAccess}</strong> — {noAccessReason(state.role, lang)}</Callout>
+      </div>
+    );
+  }
 
   if (state.accountDeleted) {
     return (

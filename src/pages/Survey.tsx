@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from '../store/index.tsx';
 import { fmt, useLang, useT } from '../i18n/index.tsx';
-import { navigate } from '../router/index.tsx';
+import { navigate, useRoute } from '../router/index.tsx';
+import { useAssessments } from '../lib/useAssessments.ts';
 import { useLive } from '../components/Live.tsx';
 import { Callout, Sim } from '../components/Bits.tsx';
 import { activeVersionFor, qText, topicName } from '../lib/data.ts';
@@ -13,6 +14,8 @@ export function SurveyPage() {
   const lang = useLang();
   const { state, update, now, persistOk } = useStore();
   const { announce, toast } = useLive();
+  const { params } = useRoute();
+  const { all: allAssessments } = useAssessments();
   const version = useMemo(() => (state.draft ? state.versions.find((v) => v.id === state.draft!.version_id) : null) ?? activeVersionFor(state, state.profile?.country), [state]);
   const byId = useMemo(() => questionMap(version), [version]);
   const answers: Answers = state.draft?.answers ?? {};
@@ -24,14 +27,17 @@ export function SurveyPage() {
   const topics = version.topics;
   const topic = topics[Math.min(topicIdx, topics.length - 1)];
 
-  // start a draft if the user lands here directly
+  // start a draft if the user lands here directly; ?from=<assessment id> resumes from stored answers (own company only)
   useEffect(() => {
     if (!state.draft) {
       const started = now();
-      update((s) => ({ ...s, profile: s.profile ?? { country: 'KE', size: 'medium', lang: s.lang, company_id: 'C-001' }, draft: { id: `D-${started.slice(0, 10)}`, version_id: version.id, started_at: started, answers: {}, pending_sync: [], updated_at: started } }));
+      const from = params.get('from');
+      const src = from ? allAssessments.find((a) => a.id === from && a.company_id === 'C-001') : null;
+      const v = src ? state.versions.find((x) => x.id === src.version_id && x.status !== 'archived') ?? version : version;
+      update((s) => ({ ...s, profile: s.profile ?? { country: src?.country ?? 'KE', size: src?.company_size ?? 'medium', lang: s.lang, company_id: 'C-001' }, draft: { id: `D-${started.slice(0, 10)}`, version_id: v.id, started_at: started, answers: src ? { ...src.answers } : {}, pending_sync: [], updated_at: started } }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [allAssessments.length]);
 
   const applicable = (q: Question) => isApplicable(q, answers, byId);
   const visibleQs = version.questions.filter((q) => q.topic === topic.id && applicable(q));

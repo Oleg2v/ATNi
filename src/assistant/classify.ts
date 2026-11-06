@@ -8,7 +8,7 @@ const HEALTH_PHRASES = [
 /** single words matched on word boundaries so that e.g. "treat" does not match "treatment of data" by accident */
 const HEALTH_WORDS = ['diet', 'diets', 'diabetes', 'diabetic', 'cholesterol', 'pregnant', 'pregnancy', 'allergy', 'allergic', 'medical', 'medicine', 'medication', 'doctor', 'symptom', 'symptoms', 'dose', 'dosage', 'supplement', 'supplements', 'disease', 'illness', 'nutritionist', 'kisukari', 'mjamzito', 'daktari', 'dawa', 'ugonjwa', 'nile'];
 
-const RESULTS_STRONG = ['why did i', 'why do i', 'why have i', 'why is my', 'why was my', 'my score', 'my grade', 'my letter', 'my result', 'my results', 'my roadmap', 'my points', 'i got', 'i get', 'i scored', 'we got', 'we scored', 'our score', 'our result',
+const RESULTS_STRONG = ['why did i', 'why do i', 'why have i', 'why is my', 'why was my', 'my score', 'my grade', 'my letter', 'my result', 'my results', 'my roadmap', 'my points', 'i scored', 'we scored', 'our score', 'our result',
   // Swahili
   'kwa nini ni', 'kwa nini nime', 'alama yangu', 'alama zangu', 'daraja langu', 'matokeo yangu', 'nimepata', 'tumepata'];
 const TOPIC_WORDS = ['marketing', 'labelling', 'labeling', 'workforce', 'engagement', 'products', 'management', 'masoko', 'lebo', 'wafanyakazi', 'ushirikiano', 'bidhaa'];

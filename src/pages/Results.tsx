@@ -85,7 +85,7 @@ export function ResultsPage() {
       {unansweredCount > 0 && (
         <Callout kind="warn">
           {lang === 'sw' ? `Maswali ${unansweredCount} hayakujibiwa na yanahesabiwa kama alama 0. ` : `${unansweredCount} question${unansweredCount === 1 ? ' was' : 's were'} left unanswered and count as 0 points. `}
-          <Link to="/assess">{lang === 'sw' ? 'Jibu ili kukamilisha tathmini' : 'Answer them to complete the assessment'}</Link>
+          <Link to={`/assess?from=${assessment.id}`}>{lang === 'sw' ? 'Jibu ili kukamilisha tathmini' : 'Answer them to complete the assessment'}</Link>
         </Callout>
       )}
 

@@ -54,6 +54,13 @@ export function AssistantDrawer() {
   useEffect(() => {
     if (open) window.setTimeout(() => inputRef.current?.focus(), 30);
   }, [open]);
+  /* aria-modal: the page behind the drawer is made inert so focus and screen readers stay inside */
+  useEffect(() => {
+    if (!open) return;
+    const behind = ['header.header', 'main', 'footer.footer', '.banner', '.offline-bar', '.skip-link'].flatMap((sel) => [...document.querySelectorAll<HTMLElement>(sel)]);
+    behind.forEach((el) => el.setAttribute('inert', ''));
+    return () => behind.forEach((el) => el.removeAttribute('inert'));
+  }, [open]);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -114,7 +121,7 @@ export function AssistantDrawer() {
 
   if (path.startsWith('/admin')) return null;
   // no floating button on the questionnaire (it would cover form controls) or before any result exists
-  const showFab = !open && !path.startsWith('/assess') && (!!latest?.result || path.startsWith('/results') || path.startsWith('/calculator'));
+  const showFab = !open && !path.startsWith('/assess') && !path.startsWith('/results') && path !== '/' && (!!latest?.result || path.startsWith('/calculator'));
 
   return (
     <>

@@ -37,7 +37,7 @@ export function maxScore(q: Question): number {
   const p = q.propositions;
   if (p.type === 'option') return p.propositions.reduce((m, o) => Math.max(m, o.score), 0);
   if (p.type === 'choices') {
-    if (p.count_score_map && p.count_score_map.length > 0) return Math.max(...p.count_score_map);
+    if (p.count_score_map && p.count_score_map.length > 0) return Math.max(...p.count_score_map.slice(0, p.propositions.length + 1));
     return round2(p.propositions.length * (p.count_score_coeff ?? 0));
   }
   return 0;
