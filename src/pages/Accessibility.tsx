@@ -12,7 +12,7 @@ const DONE: { check: string; detail: string }[] = [
   { check: 'Skip link and landmarks', detail: 'Skip link to the main content; header, navigation, main and footer landmarks; one h1 per page.' },
   { check: 'Live regions for status', detail: 'Autosave, sync, consent changes, role changes and confirmations are announced through aria-live regions; a visual toast mirrors them.' },
   { check: 'Dialogs', detail: 'Native dialog element with Esc to close and focus return to the opening control; the tour box is non-modal and also closes with Esc.' },
-  { check: 'Target size', detail: 'Buttons are at least 40 × 40 px, small buttons 32 px, links in the navigation at least 24 px tall.' },
+  { check: 'Target size', detail: 'Buttons are at least 40 × 40 px, small buttons and the topic stepper 32 px; inline link-style buttons and links in lists are at least 24 px tall.' },
   { check: 'Language attribute', detail: 'The html lang attribute switches with the UI language; passages in the other language carry their own lang attribute.' },
   { check: 'Tables and charts', detail: 'Tables have captions or accessible names and header scopes; every bar chart has a text alternative and a "show as table" toggle; Lite mode shows tables only.' },
   { check: 'Forms', detail: 'Every input has a label or an accessible name, groups use fieldset and legend, validation errors are listed with links and marked with aria-invalid.' },

@@ -162,6 +162,8 @@ fieldset.qblock[aria-invalid="true"] { border-top: 3px solid var(--danger); }
 .steps li { font-size: 0.8rem; padding: 3px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
 .steps li[aria-current="step"] { background: var(--accent); color: #fff; border-color: var(--accent); }
 .steps li.done { background: var(--ok-soft); color: var(--ok); }
+.steps .step-btn { display: inline-flex; align-items: center; min-height: 32px; padding: 3px 10px; text-decoration: none; font-size: inherit; }
+.steps .step-btn:hover { text-decoration: underline; }
 
 /* dialog / drawer */
 dialog { border: 1px solid var(--border); border-radius: var(--radius); padding: 0; max-width: min(640px, calc(100vw - 32px)); width: 100%; color: var(--text); background: var(--surface); }

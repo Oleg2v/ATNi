@@ -6,6 +6,7 @@ import { useAssessments } from '../lib/useAssessments.ts';
 import { latestOwnAssessment } from '../lib/sample.ts';
 import { fmtDate, fmtDateTime, qText, topicName, versionById } from '../lib/data.ts';
 import { Callout, GradeBadge, Kv, Sim } from '../components/Bits.tsx';
+import { useLive } from '../components/Live.tsx';
 import { BarChart } from '../components/BarChart.tsx';
 import type { Assessment } from '../types.ts';
 
@@ -16,7 +17,8 @@ export function openAssistant(): void {
 export function ResultsPage() {
   const t = useT();
   const lang = useLang();
-  const { state, update } = useStore();
+  const { state, update, log } = useStore();
+  const { announce } = useLive();
   const { params } = useRoute();
   const { all, loading } = useAssessments();
   const [whyOpen, setWhyOpen] = useState(true);
@@ -96,7 +98,12 @@ export function ResultsPage() {
           {isOwn && (
             <div className="field" style={{ marginTop: 16 }}>
               <label className="choice" style={{ alignItems: 'center' }}>
-                <input type="checkbox" checked={state.investorConsent} onChange={(e) => update((s) => ({ ...s, investorConsent: e.target.checked, myAssessments: s.myAssessments.map((a) => ({ ...a, consent_investor_share: e.target.checked })) }))} />
+                <input type="checkbox" checked={state.investorConsent} onChange={(e) => {
+                  const on = e.target.checked;
+                  update((s) => ({ ...s, investorConsent: on, myAssessments: s.myAssessments.map((a) => ({ ...a, consent_investor_share: on })) }));
+                  log(on ? 'consent-granted' : 'consent-withdrawn', 'investor-share', `Consent text ${state.settings.consent_text_version}`);
+                  announce(on ? (lang === 'sw' ? 'Kushiriki na wawekezaji kumewashwa' : 'Sharing with investors is on') : (lang === 'sw' ? 'Kushiriki na wawekezaji kumezimwa' : 'Sharing with investors is off'));
+                }} />
                 <span>{t.results.share}<br /><span className="hint">{t.results.shareHint}</span></span>
               </label>
             </div>

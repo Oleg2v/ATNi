@@ -115,8 +115,8 @@ export function SurveyPage() {
           const qs = version.questions.filter((q) => q.topic === tp.id && applicable(q));
           const done = qs.length > 0 && qs.every((q) => isAnswered(q, answers[q.question_id]));
           return (
-            <li key={tp.id} aria-current={i === topicIdx ? 'step' : undefined} className={done && i !== topicIdx ? 'done' : undefined}>
-              <button type="button" className="btn-link" style={{ color: 'inherit', padding: 0, minHeight: 0 }} onClick={() => goTopic(i)}>
+            <li key={tp.id} aria-current={i === topicIdx ? 'step' : undefined} className={done && i !== topicIdx ? 'done' : undefined} style={{ padding: 0 }}>
+              <button type="button" className="btn-link step-btn" style={{ color: 'inherit' }} onClick={() => goTopic(i)}>
                 {i + 1}. {topicName(version, tp.id, lang)}{done ? ' ✓' : ''}
               </button>
             </li>
