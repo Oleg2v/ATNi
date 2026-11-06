@@ -46,12 +46,22 @@ export function validateVersion(v: MethodologyVersion): ValidationReport {
       if (p.propositions.length < 2) add('error', 'too-few-options', `Question ${q.question_id} needs at least two options`, { question_id: q.question_id, field: 'propositions' });
       const labels = new Set<string>();
       for (const o of p.propositions) {
+        if (!o.proposition.trim()) add('error', 'empty-option', `Question ${q.question_id} has an option without a label`, { question_id: q.question_id, field: 'propositions' });
         if (labels.has(o.proposition)) add('error', 'duplicate-option', `Question ${q.question_id} has duplicate option "${o.proposition}"`, { question_id: q.question_id, field: 'propositions' });
         labels.add(o.proposition);
         if (!Number.isFinite(o.score) || o.score < 0) add('error', 'bad-score', `Question ${q.question_id}: option "${o.proposition}" has an invalid score`, { question_id: q.question_id, field: 'propositions' });
       }
     } else if (p.type === 'choices') {
       if (p.propositions.length === 0) add('error', 'no-choices', `Question ${q.question_id} has no choices`, { question_id: q.question_id, field: 'propositions' });
+      const seenChoice = new Set<string>();
+      for (const c of p.propositions) {
+        if (!c.trim()) add('error', 'empty-choice', `Question ${q.question_id} has a choice without a label`, { question_id: q.question_id, field: 'propositions' });
+        if (seenChoice.has(c)) add('error', 'duplicate-choice', `Question ${q.question_id} has duplicate choice "${c}"`, { question_id: q.question_id, field: 'propositions' });
+        seenChoice.add(c);
+      }
+      if (p.count_score_map && p.count_score_map.some((n) => !Number.isFinite(n) || n < 0)) add('error', 'bad-score', `Question ${q.question_id}: count_score_map contains a negative or invalid value`, { question_id: q.question_id, field: 'count_score_map' });
+      if (p.count_score_coeff !== undefined && (!Number.isFinite(p.count_score_coeff) || p.count_score_coeff < 0)) add('error', 'bad-score', `Question ${q.question_id}: count_score_coeff is negative or invalid`, { question_id: q.question_id, field: 'count_score_map' });
+      if (p.count_score_map && p.count_score_map.length > p.propositions.length + 1) add('warning', 'map-too-long', `Question ${q.question_id}: count_score_map has ${p.count_score_map.length} entries but only ${p.propositions.length + 1} counts are possible; the last entries can never be reached`, { question_id: q.question_id, field: 'count_score_map' });
       if (!(p.count_score_map && p.count_score_map.length) && p.count_score_coeff === undefined)
         add('error', 'no-choice-scoring', `Question ${q.question_id} has neither count_score_map nor count_score_coeff`, { question_id: q.question_id, field: 'count_score_map' });
     }
@@ -77,6 +87,7 @@ export function validateVersion(v: MethodologyVersion): ValidationReport {
   }
 
   // dependencies: exist, no self, no cycles, no text parents, specific answers exist
+  const reportedCycles = new Set<string>();
   for (const q of v.questions) {
     if (!q.dependency) continue;
     const parent = byId.get(q.dependency);
@@ -84,7 +95,10 @@ export function validateVersion(v: MethodologyVersion): ValidationReport {
       add('error', 'dangling-dependency', `Question ${q.question_id} depends on missing question ${q.dependency}`, { question_id: q.question_id, field: 'dependency' });
       continue;
     }
-    if (parent.question_id === q.question_id) add('error', 'self-dependency', `Question ${q.question_id} depends on itself`, { question_id: q.question_id, field: 'dependency' });
+    if (parent.question_id === q.question_id) {
+      add('error', 'self-dependency', `Question ${q.question_id} depends on itself`, { question_id: q.question_id, field: 'dependency' });
+      continue;
+    }
     if (parent.propositions.type === 'text') add('warning', 'text-parent', `Question ${q.question_id} depends on a free-text question, which never satisfies a dependency`, { question_id: q.question_id, field: 'dependency' });
     if (q.x_dependency_answer !== undefined) {
       const pp = parent.propositions;
@@ -96,7 +110,11 @@ export function validateVersion(v: MethodologyVersion): ValidationReport {
     let cur: Question | undefined = parent;
     while (cur && cur.dependency) {
       if (seen.has(cur.question_id)) {
-        add('error', 'dependency-cycle', `Dependency cycle through ${[...seen].join(' → ')}`, { question_id: q.question_id, field: 'dependency' });
+        const key = [...seen].sort().join('|');
+        if (!reportedCycles.has(key)) {
+          reportedCycles.add(key);
+          add('error', 'dependency-cycle', `Dependency cycle through ${[...seen].join(' → ')}`, { question_id: q.question_id, field: 'dependency' });
+        }
         break;
       }
       seen.add(cur.question_id);

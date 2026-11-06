@@ -26,6 +26,8 @@ export function tokenize(text: string): string[] {
 
 /** light suffix stripping for English plurals/-ing/-ed; Swahili left as-is */
 function stem(t: string): string {
+  // British double-l forms (labelling, labelled, modelling) → label, model
+  if (t.length > 6 && /ll(ing|ed)$/.test(t)) return t.replace(/ll(ing|ed)$/, 'l');
   if (t.length > 5 && t.endsWith('ing')) return t.slice(0, -3);
   if (t.length > 4 && t.endsWith('ed')) return t.slice(0, -2);
   if (t.length > 3 && t.endsWith('s') && !t.endsWith('ss')) return t.slice(0, -1);

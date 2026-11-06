@@ -30,7 +30,7 @@ export function StartPage() {
       ...s,
       lang: qLang,
       profile: { country, size, lang: qLang, company_id: 'C-001' },
-      draft: s.draft && s.draft.version_id === version.id ? s.draft : { id: `D-${startedAt.slice(0, 10)}`, version_id: version.id, started_at: startedAt, answers: {}, pending_sync: [], updated_at: startedAt },
+      draft: s.draft && Object.keys(s.draft.answers).length > 0 ? s.draft : { id: `D-${startedAt.slice(0, 10)}`, version_id: version.id, started_at: startedAt, answers: {}, pending_sync: [], updated_at: startedAt },
     }));
     navigate('/assess');
   };
@@ -83,7 +83,7 @@ export function StartPage() {
           </fieldset>
           <div className="row">
             <button type="button" className="btn btn-primary" onClick={begin} disabled={planned}>
-              {state.draft && state.draft.version_id === version.id && Object.keys(state.draft.answers).length > 0 ? t.start.continue : t.start.begin}
+              {state.draft && Object.keys(state.draft.answers).length > 0 ? `${t.start.continue} (${state.draft.version_id})` : t.start.begin}
             </button>
             <button type="button" className="btn" onClick={loadSample} disabled={planned}>{t.start.loadSample}</button>
           </div>
@@ -92,14 +92,14 @@ export function StartPage() {
         <section className="card" aria-labelledby="tools-h">
           <h2 id="tools-h" style={{ marginTop: 0 }}>{t.start.tools}</h2>
           <ul className="stack" style={{ listStyle: 'none', padding: 0 }}>
-            <li><Link to="/assess"><strong>{t.nav.assess}</strong></Link> — {lang === 'sw' ? 'maswali 14 katika mada 5, mapendekezo na ramani ya njia' : '14 questions in 5 topics, recommendations and a phased roadmap'}</li>
+            <li><Link to="/assess"><strong>{t.nav.assess}</strong></Link> — {lang === 'sw' ? 'maswali 14 katika mada 5 (mengine huonekana tu yanapohusika), mapendekezo na ramani ya njia' : '14 questions in 5 topics (some appear only when relevant), recommendations and a phased roadmap'}</li>
             <li><Link to="/calculator"><strong>{t.nav.calculator}</strong></Link> — {lang === 'sw' ? 'linganisha mapishi mawili kwa g 100' : 'compare two recipes per 100 g'} <span className="tiny muted">({t.calc.disclaimer})</span></li>
             <li><Link to="/investors"><strong>{t.nav.investors}</strong></Link> — {lang === 'sw' ? 'matokeo ya jumla ya kampuni zilizotoa idhini' : 'aggregated results of consenting companies'}</li>
             <li><Link to="/policy"><strong>{t.nav.policy}</strong></Link> — {lang === 'sw' ? 'jumla kwa nchi na mada' : 'country and topic aggregates'}</li>
             <li><strong>Impact Investment Tool</strong> — <Sim>{lang === 'sw' ? 'haijaundwa katika dhana hii' : 'not prototyped in this concept'}</Sim></li>
           </ul>
           <Callout kind="info">
-            <span className="small">{lang === 'sw' ? 'Majukumu ya wafanyakazi (mhariri wa maudhui, mhariri wa mbinu, mchambuzi, msimamizi) yanabadilishwa kwa kibadilishaji kilicho juu — kiingilio kimeigwa.' : 'Staff roles (content editor, methodology editor, analyst, admin) are switched with the selector at the top — login is simulated.'}</span>
+            <span className="small">{lang === 'sw' ? 'Majukumu ya wafanyakazi (mhariri wa maudhui, mhariri wa mbinu, mchambuzi, msimamizi) yanabadilishwa kwa kibadilishaji kilicho juu — kuingia kumeigwa.' : 'Staff roles (content editor, methodology editor, analyst, admin) are switched with the selector at the top — login is simulated.'}</span>
           </Callout>
         </section>
       </div>

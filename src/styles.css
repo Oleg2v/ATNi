@@ -7,7 +7,7 @@
   --surface: #ffffff;
   --surface-2: #eef0ec;
   --border: #c9cdc5;
-  --border-strong: #8d948a;
+  --border-strong: #646c64;   /* ≥ 3:1 against white and surface-2 for input borders */
   --text: #1c211d;
   --text-2: #4a524c;      /* 7.4:1 on white */
   --text-3: #5f675f;      /* 5.6:1 on white */
@@ -73,6 +73,8 @@ caption { text-align: left; font-weight: 600; padding: 6px 0; color: var(--text-
 .banner { background: #2b2f2c; color: #f3f5f2; font-size: 0.85rem; padding: 6px var(--gutter); text-align: center; line-height: 1.3; }
 .banner strong { color: #ffffff; }
 .header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+html { scroll-padding-top: 120px; }
+:focus-visible { scroll-margin-top: 120px; }
 .header-inner { max-width: var(--maxw); margin: 0 auto; padding: 8px var(--gutter); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 .brand { font-weight: 700; text-decoration: none; color: var(--text); font-size: 1.05rem; white-space: nowrap; }
 .brand small { font-weight: 400; color: var(--text-2); margin-left: 6px; }
@@ -87,6 +89,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 20px var(--gutter) 96px;
 .page-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 12px; }
 .lead { font-size: 1.05rem; color: var(--text-2); max-width: 70ch; }
 .grid { display: grid; gap: 16px; }
+.grid > * { min-width: 0; }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
 .stack > * + * { margin-top: 12px; }
@@ -151,6 +154,7 @@ fieldset.qblock[aria-invalid="true"] { border-top: 3px solid var(--danger); }
 .choice input { width: 20px; height: 20px; margin: 2px 0 0; flex: none; accent-color: var(--accent); }
 .choice-selected { background: var(--accent-soft); }
 .segmented { display: inline-flex; border: 1px solid var(--border-strong); border-radius: var(--radius); overflow: hidden; }
+.segmented button:focus-visible { outline-offset: -3px; }
 .segmented button { border: 0; background: var(--surface); color: var(--text-2); padding: 6px 12px; min-height: 36px; font: inherit; cursor: pointer; }
 .segmented button[aria-pressed="true"] { background: var(--accent); color: #fff; }
 .segmented button + button { border-left: 1px solid var(--border-strong); }
@@ -179,6 +183,8 @@ dialog::backdrop { background: rgba(20, 25, 22, 0.45); }
 .msg-user { background: var(--accent-soft); margin-left: 24px; }
 .msg-bot { background: var(--surface-2); margin-right: 12px; }
 .fab { position: fixed; right: 16px; bottom: 16px; z-index: 150; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); }
+.nav-wrap { position: relative; order: 3; width: 100%; }
+.role-label { white-space: nowrap; }
 
 /* status */
 .toast { position: fixed; left: 50%; bottom: 72px; transform: translateX(-50%); background: #2b2f2c; color: #fff; padding: 10px 16px; border-radius: var(--radius); z-index: 300; max-width: calc(100vw - 32px); font-size: 0.925rem; }
@@ -214,9 +220,15 @@ dialog::backdrop { background: rgba(20, 25, 22, 0.45); }
 }
 @media (max-width: 720px) {
   h1 { font-size: 1.35rem; }
-  .header-inner { padding: 6px var(--gutter); }
-  .nav { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+  .header { position: static; }
+  html { scroll-padding-top: 0; }
+  :focus-visible { scroll-margin-top: 8px; }
+  .header-inner { padding: 6px var(--gutter); gap: 6px 8px; }
+  .header-tools { gap: 6px; }
+  .header-tools .role-badge { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; padding: 0; }
+  .nav { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; scrollbar-width: thin; -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent); }
   .nav a { white-space: nowrap; }
+  .fab { right: 10px; bottom: 10px; min-height: 36px; padding: 6px 12px; font-size: 0.9rem; }
   main { padding-top: 14px; }
   .card { padding: 12px; }
   .drawer { width: 100vw; }
@@ -225,6 +237,7 @@ dialog::backdrop { background: rgba(20, 25, 22, 0.45); }
 @media print {
   .banner, .header, .footer, .fab, .no-print, .drawer, .toast { display: none !important; }
   main { max-width: none; padding: 0; }
+  .grid-3 { grid-template-columns: 1fr; }
   .card { box-shadow: none; break-inside: avoid; }
   a { color: inherit; text-decoration: none; }
   .print-banner { display: block !important; font-size: 0.8rem; border: 1px solid #000; padding: 6px; margin-bottom: 12px; }

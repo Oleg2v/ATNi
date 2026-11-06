@@ -22,6 +22,29 @@ function pick(v: Record<string, unknown>): Nutrients {
   return { energy_kj: v.energy_kj as number, sugars_g: v.sugars_g as number, sat_fat_g: v.sat_fat_g as number, salt_g: v.salt_g as number, fibre_g: v.fibre_g as number, protein_g: v.protein_g as number, fvl_percent: v.fvl_percent as number };
 }
 
+function clampNutrients(v: Nutrients): Nutrients {
+  const out = { ...v };
+  for (const k of KEYS) out[k.key] = Math.min(k.max, Math.max(0, Number.isFinite(out[k.key]) ? out[k.key] : 0));
+  return out;
+}
+
+/** Defined at module level so React keeps the inputs mounted (and focused) between keystrokes. */
+function VariantInputs({ which, v, set, labels }: { which: 'A' | 'B'; v: Nutrients; set: (n: Nutrients) => void; labels: ReturnType<typeof useT>['calc'] }) {
+  return (
+    <fieldset>
+      <legend>{labels.variant} {which} — {productJson.variants[which].label}</legend>
+      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 8 }}>
+        {KEYS.map((k) => (
+          <div key={k.key} className="field" style={{ margin: 0 }}>
+            <label htmlFor={`${which}-${k.key}`} className="small">{labels[k.label] as string}</label>
+            <input id={`${which}-${k.key}`} type="number" inputMode="decimal" min={0} max={k.max} step={k.step} value={v[k.key]} onChange={(e) => set(clampNutrients({ ...v, [k.key]: Number(e.target.value) }))} />
+          </div>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
 export function CalculatorPage() {
   const t = useT();
   const lang = useLang();
@@ -31,6 +54,7 @@ export function CalculatorPage() {
   const rb = nutriScore2023(b);
   const hint = nextGradeHint(b);
   const nutrientLabel = (k: Key) => t.calc[KEYS.find((x) => x.key === k)!.label] as string;
+  const nutrientName = (k: Key) => nutrientLabel(k).replace(/\s*\(.*\)\s*$/, '').toLowerCase();
   const rows: { label: string; a: number | string; b: number | string }[] = [
     { label: `${t.calc.energy}`, a: ra.points.energy, b: rb.points.energy },
     { label: `${t.calc.sugars}`, a: ra.points.sugars, b: rb.points.sugars },
@@ -44,20 +68,6 @@ export function CalculatorPage() {
     { label: t.calc.score, a: ra.score, b: rb.score },
   ];
 
-  const Inputs = ({ which, v, set }: { which: 'A' | 'B'; v: Nutrients; set: (n: Nutrients) => void }) => (
-    <fieldset>
-      <legend>{t.calc.variant} {which} — {productJson.variants[which].label}</legend>
-      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 8 }}>
-        {KEYS.map((k) => (
-          <div key={k.key} className="field" style={{ margin: 0 }}>
-            <label htmlFor={`${which}-${k.key}`} className="small">{t.calc[k.label] as string}</label>
-            <input id={`${which}-${k.key}`} type="number" inputMode="decimal" min={0} max={k.max} step={k.step} value={v[k.key]} onChange={(e) => set({ ...v, [k.key]: Math.max(0, Number(e.target.value) || 0) })} />
-          </div>
-        ))}
-      </div>
-    </fieldset>
-  );
-
   return (
     <div>
       <h1>{t.calc.title}</h1>
@@ -66,8 +76,8 @@ export function CalculatorPage() {
       <p className="small muted">{t.calc.product}: {productJson.name} · {productJson.basis}</p>
       <div className="grid grid-2">
         <div className="card">
-          <Inputs which="A" v={a} set={setA} />
-          <Inputs which="B" v={b} set={setB} />
+          <VariantInputs which="A" v={a} set={setA} labels={t.calc} />
+          <VariantInputs which="B" v={b} set={setB} labels={t.calc} />
           <section aria-labelledby="sliders-h">
             <h2 id="sliders-h" style={{ fontSize: '1rem' }}>{t.calc.sliders}</h2>
             {SLIDERS.map((k) => {
@@ -83,7 +93,7 @@ export function CalculatorPage() {
               {hint.target ? (
                 <>
                   <strong>{fmt(t.calc.nextGrade, { g: hint.target })}:</strong>{' '}
-                  {hint.change ? fmt(t.calc.nextGradeText, { nutrient: nutrientLabel(hint.change.nutrient).toLowerCase(), from: hint.change.from, to: hint.change.to }) : t.calc.nextGradeNotFound}
+                  {hint.change ? fmt(t.calc.nextGradeText, { nutrient: nutrientName(hint.change.nutrient), from: hint.change.from, to: hint.change.to }) : t.calc.nextGradeNotFound}
                 </>
               ) : (
                 t.calc.nextGradeNone

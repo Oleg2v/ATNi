@@ -76,7 +76,7 @@ export function PolicyPage() {
         <p className="lead">{v.lead}</p>
         <Callout kind="info" role="note">{v.noCompanies}</Callout>
         <p className="hint" role="status">
-          {loading ? v.loading : <>{fmt(v.unit, { v: version.id })} {COUNTRIES.map((c) => `${countryName(c)}: n = ${byCountry[c].length}`).join(' · ')}</>}
+          {loading ? v.loading : <>{fmt(v.unit, { v: [...new Set(companies.map((a) => a.version_id))].sort().join(', ') || version.id })} {COUNTRIES.map((c) => `${countryName(c)}: n = ${byCountry[c].length}`).join(' · ')}</>}
         </p>
       </section>
 

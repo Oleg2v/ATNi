@@ -7,6 +7,8 @@ export type Updater = (s: AppState) => AppState;
 
 interface StoreApi {
   state: AppState;
+  /** false when the last localStorage write failed (storage blocked or full) */
+  persistOk: boolean;
   update: (fn: Updater) => void;
   reset: () => void;
   /** append an audit entry (actor = current role) */
@@ -25,13 +27,14 @@ function hydrate(saved: Partial<AppState> | null): AppState {
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AppState>(() => hydrate(loadState<AppState>()));
+  const [persistOk, setPersistOk] = useState(true);
   const first = useRef(true);
   useEffect(() => {
     if (first.current) {
       first.current = false;
       return;
     }
-    saveState(state);
+    setPersistOk(saveState(state));
   }, [state]);
   useEffect(() => {
     document.documentElement.lang = state.lang;
@@ -52,7 +55,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       }),
     [],
   );
-  const api = useMemo(() => ({ state, update, reset, log, now }), [state, update, reset, log, now]);
+  const api = useMemo(() => ({ state, persistOk, update, reset, log, now }), [state, persistOk, update, reset, log, now]);
   return <StoreContext.Provider value={api}>{children}</StoreContext.Provider>;
 }
 

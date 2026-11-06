@@ -141,7 +141,9 @@ export function focusField(id: string): boolean {
     const el = document.getElementById(target);
     if (el) {
       if (typeof el.scrollIntoView === 'function') el.scrollIntoView({ block: 'center' });
-      const first = el.querySelector<HTMLElement>('input:not([type=hidden]), select, textarea, button, a[href]');
+      // when a recommendation for a specific score is missing, land on the "Add recommendation" button rather than the type select
+      const addBtn = i > 0 && /recommandations-/.test(id) ? el.querySelector<HTMLElement>('[data-add]') : null;
+      const first = addBtn ?? el.querySelector<HTMLElement>('input:not([type=hidden]), select, textarea, button, a[href]');
       (first ?? el).focus({ preventScroll: true });
       if (!first && !el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
       if (!first) el.focus({ preventScroll: true });
@@ -170,12 +172,12 @@ export interface PublishSnapshot {
  * Publish version `id`: it becomes 'published', the previously published version for the same
  * country becomes 'archived', and country pointers move to the new id.
  */
-export function applyPublish(s: AppState, id: string, nowIso: string, by: string, comment?: string): { state: AppState; snapshot: PublishSnapshot } {
+export function applyPublish(s: AppState, id: string, nowIso: string, by: string, comment?: string, opts: { keepMetadata?: boolean } = {}): { state: AppState; snapshot: PublishSnapshot } {
   const v = s.versions.find((x) => x.id === id);
   if (!v) return { state: s, snapshot: { kind: 'publish', published_id: id, country: '*', previous_version: null, countries_updated: [] } };
   const previous = s.versions.find((x) => x.status === 'published' && x.country === v.country && x.id !== id) ?? null;
   const versions = s.versions.map((x) => {
-    if (x.id === id) return { ...x, status: 'published' as const, published_at: nowIso, published_by: by, ...(comment !== undefined ? { comment } : {}) };
+    if (x.id === id) return opts.keepMetadata && x.published_at ? { ...x, status: 'published' as const } : { ...x, status: 'published' as const, published_at: nowIso, published_by: by, ...(comment !== undefined ? { comment } : {}) };
     if (previous && x.id === previous.id) return { ...x, status: 'archived' as const };
     return x;
   });
@@ -192,7 +194,7 @@ export function applyPublish(s: AppState, id: string, nowIso: string, by: string
     }
     if (c.code === v.country) {
       updated.push(c.code);
-      return { ...c, methodology_version_id: id };
+      return { ...c, methodology_version_id: id, status: 'active' as const };
     }
     return c;
   });

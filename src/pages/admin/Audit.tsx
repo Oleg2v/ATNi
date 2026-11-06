@@ -36,7 +36,7 @@ export function AuditPage() {
     const nowIso = now();
     update((s) => {
       const base = s.versions.some((v) => v.id === prev.id) ? s : { ...s, versions: [...s.versions, prev] };
-      return applyPublish(base, prev.id, nowIso, roleLabel).state;
+      return applyPublish(base, prev.id, nowIso, roleLabel, undefined, { keepMetadata: true }).state;
     });
     log('rollback', prev.id, `Rolled back ${snap.published_id} → ${prev.id} (journal entry ${confirm.id}). ${snap.published_id} archived; country pointers restored.`, { kind: 'rollback', from: snap.published_id, to: prev.id });
     toast(`${prev.id} is published again; ${snap.published_id} archived`);

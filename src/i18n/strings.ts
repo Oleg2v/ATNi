@@ -254,7 +254,7 @@ export const strings = {
     },
     powerbi: 'Ripoti ya Power BI iliyochapishwa na ATNi ingewekwa hapa',
     powerbiNote: 'Nafasi ya mfano, hakuna data na hakuna fremu ya nje.',
-    common: { close: 'Funga', cancel: 'Ghairi', save: 'Hifadhi', back: 'Rudi', yes: 'Ndiyo', no: 'Hapana', loading: 'Inapakia…', showTable: 'Onyesha kama jedwali', hideTable: 'Ficha jedwali', more: 'Zaidi', country: 'Nchi', date: 'Tarehe', company: 'Kampuni', status: 'Hali', actions: 'Vitendo', search: 'Tafuta', noAccess: 'Hakuna ruhusa', version: 'Toleo', draft: 'rasimu', published: 'imechapishwa', archived: 'imehifadhiwa' },
+    common: { close: 'Funga', cancel: 'Ghairi', save: 'Hifadhi', back: 'Rudi', yes: 'Ndiyo', no: 'Hapana', loading: 'Inapakia…', showTable: 'Onyesha kama jedwali', hideTable: 'Ficha jedwali', more: 'Zaidi', country: 'Nchi', date: 'Tarehe', company: 'Kampuni', status: 'Hali', actions: 'Vitendo', search: 'Tafuta', noAccess: 'Hakuna ruhusa', version: 'Toleo', draft: 'rasimu', published: 'imechapishwa', archived: 'imewekwa kumbukumbu' },
     draftTranslation: 'tafsiri ya rasimu, inahitaji ukaguzi wa mzawa',
     account: { title: 'Akaunti yangu', download: 'Pakua data yangu (JSON)', delete: 'Futa akaunti yangu', deleteConfirm: 'Futa akaunti yako na majibu yote kutoka kifaa hiki? (imeigwa)', deleted: 'Akaunti imefutwa (imeigwa). Pakia upya au rudisha onyesho ili kuanza tena.', tickets: 'Maswali yaliyotumwa kwa timu ya jukwaa', noTickets: 'Bado hakuna.', retention: 'Uhifadhi: data ya tathmini huhifadhiwa kwa miaka 5 baada ya shughuli ya mwisho (inaweza kubadilishwa na wasimamizi).', consent: 'Idhini' },
   },

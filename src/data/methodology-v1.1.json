@@ -251,7 +251,7 @@
       "topic": "Marketing",
       "question": "Which marketing channels does the policy cover?",
       "question_id": "2.3",
-      "info": "Shown only when the policy and its age threshold have been described.",
+      "info": "Shown once the policy has been described (after the age-threshold question).",
       "dependency": "2.2",
       "recommandations": {
         "type": "fixed",
@@ -364,7 +364,7 @@
       "recommandations": {
         "type": "fixed",
         "x_id": "R-18",
-        "recommandation": "Programmes that combine food at work with education and breastfeeding support show the most consistent results. Add one element at a time and ask employees which one they would value next."
+        "recommandation": "A programme that combines food at work with education and breastfeeding support addresses more needs than any single element. Add one element at a time and ask employees which one they would value next."
       },
       "propositions": {
         "type": "choices",
@@ -709,7 +709,7 @@
         },
         "2.3": {
           "question": "Sera inahusu njia zipi za masoko?",
-          "info": "Linaonyeshwa tu baada ya sera na kikomo chake cha umri kuelezwa.",
+          "info": "Linaonyeshwa mara sera inapoelezwa (baada ya swali la kikomo cha umri).",
           "propositions": [
             "Televisheni na redio",
             "Mitandao ya kidijitali na kijamii",

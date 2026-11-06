@@ -3,7 +3,7 @@ import type { AppState } from '../store/initial.ts';
 import { computeResult } from '../engine/score.ts';
 import { activeVersionFor } from './data.ts';
 
-/** Sample answers for the current (synthetic) company: Marketing lands on C. */
+/** Sample answers for the current (synthetic) company: Marketing lands on C; differs from the seeded September result so the history shows two distinct entries. */
 export const SAMPLE_ANSWERS: Assessment['answers'] = {
   '1.1': { type: 'option', selected: 'Yes, in draft' },
   '1.2': { type: 'choices', selected: ['Reformulation targets (sugar, salt, fat)', 'Affordable healthier product lines'] },
@@ -13,9 +13,9 @@ export const SAMPLE_ANSWERS: Assessment['answers'] = {
   '2.2': { type: 'option', selected: 'Under 13' },
   '2.3': { type: 'choices', selected: ['Television and radio', 'Packaging and in-store promotion'] },
   '2.4': { type: 'option', selected: 'No' },
-  '3.1': { type: 'option', selected: 'Yes, at some sites' },
+  '3.1': { type: 'option', selected: 'Yes, at all sites' },
   '3.2': { type: 'choices', selected: ['Healthier food or snacks at work', 'Nutrition education for employees'] },
-  '4.1': { type: 'option', selected: 'Most products' },
+  '4.1': { type: 'option', selected: 'Yes, all products' },
   '4.2': { type: 'choices', selected: ['Clear allergen highlighting'] },
   '5.1': { type: 'option', selected: 'No' },
   '5.2': { type: 'choices', selected: ['Industry associations', 'Government ministries or agencies'] },

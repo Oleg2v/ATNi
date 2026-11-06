@@ -14,9 +14,9 @@ export function HealthPage() {
   const report = useMemo(() => validateVersion(version), [version]);
   const codes = new Set(report.issues.map((i) => i.code));
   const hasError = (prefixes: string[]) => report.issues.some((i) => i.severity === 'error' && prefixes.some((p) => i.code.startsWith(p)));
-  const checks: { label: string; ok: boolean; detail: string }[] = [
+  const checks: { label: string; ok: boolean; detail: string; warn?: boolean }[] = [
     { label: 'Every achievable score has a recommendation', ok: !codes.has('missing-rec') && !codes.has('empty-rec'), detail: `${report.issues.filter((i) => i.code === 'missing-rec').length} missing` },
-    { label: 'Every question has Swahili text', ok: !codes.has('missing-translation'), detail: `${report.issues.filter((i) => i.code === 'missing-translation').length} gaps` },
+    { label: 'Every question has Swahili text', ok: !codes.has('missing-translation'), warn: true, detail: `${report.issues.filter((i) => i.code === 'missing-translation').length} gaps (warning: does not block publishing)` },
     { label: 'No dangling dependencies or cycles', ok: !hasError(['dangling', 'dependency-cycle', 'self-dependency', 'bad-dependency-answer']), detail: 'dependency chains are evaluated recursively' },
     { label: 'Roadmap rules point to existing recommendations and questions', ok: !hasError(['rule-']), detail: `${version.roadmap_rules.length} rules` },
     { label: 'Grading defines all five letters', ok: !codes.has('grading-incomplete'), detail: version.grading.map((g) => `${g.grade} ≥ ${g.min_percent} %`).join(' · ') },
@@ -47,9 +47,9 @@ export function HealthPage() {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {checks.map((c) => (
               <li key={c.label} className="issue">
-                <span className={`dot ${c.ok ? 'dot-ok' : 'dot-error'}`} aria-hidden="true" />
+                <span className={`dot ${c.ok ? 'dot-ok' : c.warn ? 'dot-warning' : 'dot-error'}`} aria-hidden="true" />
                 <span>
-                  <span className="sr-only">{c.ok ? 'passed' : 'failed'}: </span>
+                  <span className="sr-only">{c.ok ? 'passed' : c.warn ? 'warning' : 'failed'}: </span>
                   {c.label}
                   <div className="tiny muted">{c.detail}</div>
                 </span>

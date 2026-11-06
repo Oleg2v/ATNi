@@ -4,7 +4,8 @@ import { fmt, useLang, useT } from '../i18n/index.tsx';
 import { Link, useRoute } from '../router/index.tsx';
 import { useAssessments } from '../lib/useAssessments.ts';
 import { latestOwnAssessment } from '../lib/sample.ts';
-import { fmtDate, qText, recText, ruleTitle, topicName, versionById } from '../lib/data.ts';
+import { fmtDate, localizeAnswerLabel, qText, recText, ruleTitle, topicName, versionById } from '../lib/data.ts';
+import { noAccessReason } from './Results.tsx';
 import { buildRoadmap } from '../engine/roadmap.ts';
 import { Callout, GradeBadge, Sim } from '../components/Bits.tsx';
 import type { Phase } from '../types.ts';
@@ -28,12 +29,20 @@ export function RoadmapPage() {
       <div>
         <h1>{t.roadmap.title}</h1>
         <Callout kind="warn" role="status">
-          <strong>{t.common.noAccess}</strong> — {lang === 'sw' ? 'Wahariri wa maudhui wanahariri maswali, mapendekezo na tafsiri; hawaoni majibu ya kampuni binafsi. Majibu yanaonekana kwa kampuni yenyewe, wachambuzi na wasimamizi.' : 'Content editors edit questions, recommendations and translations; they do not see individual company answers. Answers are visible to the company itself, analysts and administrators.'}
+          <strong>{t.common.noAccess}</strong> — {noAccessReason(state.role, lang)}
         </Callout>
       </div>
     );
   }
   if (loading && !assessment) return <p role="status">{t.common.loading}</p>;
+  if (assessment && state.role === 'company' && assessment.company_id !== 'C-001') {
+    return (
+      <div>
+        <h1>{t.roadmap.title}</h1>
+        <Callout kind="warn" role="status"><strong>{t.common.noAccess}</strong> — {lang === 'sw' ? 'Kampuni huona ramani yake pekee.' : 'A company can only open its own roadmap.'}</Callout>
+      </div>
+    );
+  }
   if (!assessment || !assessment.result || !version) {
     return (
       <div>
@@ -48,6 +57,7 @@ export function RoadmapPage() {
     window.print();
   };
   const byId = new Map(version.questions.map((q) => [q.question_id, q]));
+  const unanswered = assessment.result.questions.filter((x) => x.applicable && !x.answered).length;
 
   return (
     <div data-tour="roadmap">
@@ -62,6 +72,12 @@ export function RoadmapPage() {
       <p className="small muted">
         {assessment.company_name} · {fmtDate(assessment.completed_at, lang)} · <GradeBadge grade={assessment.result.grade} /> · {fmt(t.roadmap.basis, { n: version.roadmap_rules.length, v: version.id })}
       </p>
+      {unanswered > 0 && (
+        <Callout kind="warn">
+          {lang === 'sw' ? `Maswali ${unanswered} hayakujibiwa, kwa hivyo hakuna hatua zilizotengenezwa kwa ajili yake. ` : `${unanswered} question${unanswered === 1 ? ' was' : 's were'} left unanswered, so no steps were generated for them. `}
+          <Link to="/assess">{lang === 'sw' ? 'Jibu ili kukamilisha ramani' : 'Answer them to complete the roadmap'}</Link>
+        </Callout>
+      )}
       <div className="field no-print" style={{ maxWidth: 360 }}>
         <label htmlFor="topic-filter">{t.roadmap.filter}</label>
         <select id="topic-filter" value={topic} onChange={(e) => setTopic(e.target.value)}>
@@ -92,7 +108,7 @@ export function RoadmapPage() {
                       </div>
                       <p className="small" style={{ margin: '4px 0' }}>{rec.text} {lang === 'sw' && !rec.translated && <span className="chip chip-warn">{t.draftTranslation}</span>}</p>
                       <p className="tiny muted" style={{ margin: 0 }}>
-                        {t.roadmap.because} <q>{s.because.answer}</q> — {q ? qText(version, q, lang).question : s.question_id} ({s.because.score}/{s.because.max}) · {s.rule_id}
+                        {t.roadmap.because} <q>{q ? localizeAnswerLabel(version, q, s.because.answer, lang) : s.because.answer}</q> — {q ? qText(version, q, lang).question : s.question_id} ({s.because.score}/{s.because.max}) · {s.rule_id}
                       </p>
                     </li>
                   );

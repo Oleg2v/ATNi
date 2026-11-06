@@ -53,6 +53,30 @@ export function qText(v: MethodologyVersion, q: Question, lang: Lang): { questio
   return { question: q.question, info: q.info ?? '', options: enOptions, textPlaceholder: enPlaceholder, translated: lang === 'en' };
 }
 
+/** Map a stored (English) answer label to the questionnaire language via option indexes. */
+export function localizeAnswerLabel(v: MethodologyVersion, q: Question, label: string, lang: Lang): string {
+  if (lang !== 'sw' || !label) return label;
+  const txt = qText(v, q, lang);
+  if (!txt.translated) return label;
+  const p = q.propositions;
+  if (p.type === 'option') {
+    const [sel, ...rest] = label.split(' — ');
+    const i = p.propositions.findIndex((o) => o.proposition === sel);
+    return i >= 0 ? [txt.options[i], ...rest].join(' — ') : label;
+  }
+  if (p.type === 'choices') {
+    if (label === 'None of the above') return 'Hakuna kati ya hivi';
+    return label
+      .split(', ')
+      .map((part) => {
+        const i = p.propositions.indexOf(part);
+        return i >= 0 ? txt.options[i] : part;
+      })
+      .join(', ');
+  }
+  return label;
+}
+
 export function recText(v: MethodologyVersion, recId: string, en: string, lang: Lang): { text: string; translated: boolean } {
   if (lang === 'sw') {
     const sw = v.translations.sw.recommendations?.[recId];

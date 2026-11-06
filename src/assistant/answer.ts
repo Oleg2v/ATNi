@@ -91,7 +91,11 @@ export function answer(question: string, lang: Lang, kb: KbDoc[], index: Bm25Ind
   const qTermCount = Math.max(1, new Set(tokenize(question)).size);
   // a hit is a usable source only if it is strong enough: either most query terms matched, or a high score
   const hits = search(index, question, 4).filter((h) => h.score >= MIN_HIT_SCORE && (h.matched.length / qTermCount >= 0.34 || h.score >= 6));
-  const kbSources = (ids: string[]): Source[] => ids.map((id) => ({ id, label: `${byId.get(id)?.kind ?? 'kb'} ${id}`, kind: 'kb' as const }));
+  const kbSources = (ids: string[]): Source[] => ids.map((id) => {
+    const d = byId.get(id);
+    const title = (lang === 'sw' ? d?.title_sw : undefined) ?? d?.title ?? id;
+    return { id, label: `${d?.kind ?? 'kb'} ${id} · ${title.length > 48 ? title.slice(0, 47) + '…' : title}`, kind: 'kb' as const };
+  });
   const docText = (id: string) => {
     const d = byId.get(id)!;
     return lang === 'sw' && d.body_sw ? d.body_sw : d.body;

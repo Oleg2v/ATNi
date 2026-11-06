@@ -20,7 +20,7 @@ const REQUIREMENTS: Req[] = [
   { quote: 'Nutrition Score Calculator', where: [{ to: '/calculator', label: 'Calculator' }] },
   { quote: 'Investor Insights Hub', where: [{ to: '/investors', label: 'Investors' }] },
   { quote: 'Policy Insights Hub', where: [{ to: '/policy', label: 'Policy' }] },
-  { quote: 'Impact Investment Tool', where: [{ label: 'Not prototyped' }], note: 'Not prototyped; a placeholder and the intended approach are described in the proposal.' },
+  { quote: 'Impact Investment Tool', where: [{ label: 'Not prototyped' }], note: 'Not prototyped in this concept; the intended approach is for the written proposal, not for this demo.' },
   { quote: 'multilingual (English, Swahili)', where: [{ label: 'EN / SW switch in the header' }, { to: '/admin/translations', label: 'Admin › Translations' }] },
   { quote: 'login-protected and public-facing areas … role-based user management system for internal staff', where: [{ label: 'Demo role switcher in the header (login simulated)' }, { to: '/admin/users', label: 'Admin › Users' }] },
   { quote: 'routine content management, user management, and configuration updates without requiring software development expertise', where: [{ to: '/admin/methodology/v1.1', label: 'Admin › Methodology v1.1' }, { to: '/admin/countries', label: 'Admin › Countries' }, { to: '/admin/import', label: 'Admin › Import' }] },
@@ -142,7 +142,7 @@ export function EvaluatorsPage() {
                   <td>
                     <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
                       {r.where.map((w) => (
-                        <li key={w.label}>{w.to ? <Link to={w.to}>{w.label}</Link> : w.label}</li>
+                        <li key={w.label}>{w.to ? <Link to={w.to} onClick={w.to.startsWith('/admin') ? () => update((s) => (s.role === 'company' ? { ...s, role: 'admin' } : s)) : undefined}>{w.label}{w.to.startsWith('/admin') ? <span className="tiny muted"> (opens as Admin, demo role)</span> : null}</Link> : w.label}</li>
                       ))}
                     </ul>
                     {r.note && <div className="tiny muted">{r.note}</div>}

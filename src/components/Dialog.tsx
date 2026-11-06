@@ -1,9 +1,10 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ReactNode } from 'react';
 
 /** Native <dialog> modal with Esc, backdrop close and focus return to the opener. */
 export function Dialog({ open, onClose, title, children, labelClose = 'Close', wide }: { open: boolean; onClose: () => void; title: string; children: ReactNode; labelClose?: string; wide?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null);
   const opener = useRef<Element | null>(null);
+  const titleId = useId();
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
@@ -39,9 +40,9 @@ export function Dialog({ open, onClose, title, children, labelClose = 'Close', w
     };
   }, [onClose]);
   return (
-    <dialog ref={ref} aria-labelledby="dlg-title" style={wide ? { maxWidth: 'min(960px, calc(100vw - 32px))' } : undefined} onClick={(e) => { if (e.target === ref.current) onClose(); }}>
+    <dialog ref={ref} aria-labelledby={titleId} style={wide ? { maxWidth: 'min(960px, calc(100vw - 32px))' } : undefined} onClick={(e) => { if (e.target === ref.current) onClose(); }}>
       <div className="dialog-head">
-        <h2 id="dlg-title">{title}</h2>
+        <h2 id={titleId}>{title}</h2>
         <button type="button" className="btn btn-sm" data-close onClick={onClose} aria-label={labelClose}>✕</button>
       </div>
       <div className="dialog-body">{children}</div>

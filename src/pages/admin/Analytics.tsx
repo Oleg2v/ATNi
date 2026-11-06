@@ -28,16 +28,16 @@ export function AnalyticsPage() {
   const editorTarget = draft?.id ?? state.versions.find((v) => v.status === 'published')?.id ?? 'v1.1';
   return (
     <section>
-      <PageHead title="Engagement analytics" lead="Where companies start, finish and download a plan, and which question loses them. In production this comes from privacy-respecting first-party analytics (no third-party trackers); here every number is synthetic." right={<Sim>synthetic data</Sim>} />
+      <PageHead title="Engagement analytics" lead="Where companies start, finish and download their roadmap, and which question loses them. The drop-off data below was collected on v1.0; the editor link opens the current draft so the fix lands in the next version. In production this comes from privacy-respecting first-party analytics (no third-party trackers); here every number is synthetic." right={<Sim>synthetic data</Sim>} />
       <div className="grid grid-2">
         <div className="card">
           <h2>Funnel (all months) <Sim>synthetic data</Sim></h2>
           <BarChart title="Companies" unit="" max={started} bars={[
             { label: 'Started', value: started },
             { label: 'Completed', value: completed, note: `${pct(completed, started)} % of started` },
-            { label: 'Downloaded plan', value: downloaded, note: `${pct(downloaded, completed)} % of completed` },
+            { label: 'Downloaded roadmap', value: downloaded, note: `${pct(downloaded, completed)} % of completed` },
           ]} caption="Funnel totals" />
-          <p className="small muted" style={{ marginTop: 8 }}>Median time to complete: {data.median_minutes_to_complete} minutes. Completion rate {pct(completed, started)} %, plan download rate {pct(downloaded, completed)} % of completed.</p>
+          <p className="small muted" style={{ marginTop: 8 }}>Median time to complete: {data.median_minutes_to_complete} minutes. Completion rate {pct(completed, started)} %, roadmap download rate {pct(downloaded, completed)} % of completed.</p>
           <div className="table-wrap">
             <table>
               <caption>By month</caption>
@@ -46,7 +46,7 @@ export function AnalyticsPage() {
                   <th scope="col">Month</th>
                   <th scope="col" className="num">Started</th>
                   <th scope="col" className="num">Completed</th>
-                  <th scope="col" className="num">Plan downloaded</th>
+                  <th scope="col" className="num">Roadmap downloaded</th>
                   <th scope="col" className="num">Completion %</th>
                 </tr>
               </thead>
@@ -86,7 +86,7 @@ export function AnalyticsPage() {
                   <th scope="col">Language</th>
                   <th scope="col" className="num">Started</th>
                   <th scope="col" className="num">Completed</th>
-                  <th scope="col" className="num">Plan downloaded</th>
+                  <th scope="col" className="num">Roadmap downloaded</th>
                   <th scope="col" className="num">Completion %</th>
                 </tr>
               </thead>

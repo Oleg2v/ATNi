@@ -11,7 +11,7 @@ import type { AnswerValue, Answers, Assessment, Question } from '../types.ts';
 export function SurveyPage() {
   const t = useT();
   const lang = useLang();
-  const { state, update, now } = useStore();
+  const { state, update, now, persistOk } = useStore();
   const { announce, toast } = useLive();
   const version = useMemo(() => (state.draft ? state.versions.find((v) => v.id === state.draft!.version_id) : null) ?? activeVersionFor(state, state.profile?.country), [state]);
   const byId = useMemo(() => questionMap(version), [version]);
@@ -54,13 +54,13 @@ export function SurveyPage() {
       return { ...s, draft: { ...s.draft, answers: next, pending_sync: pending, updated_at: at } };
     });
     window.clearTimeout(saveTimer.current);
-    saveTimer.current = window.setTimeout(() => announce(state.offline ? t.savedLocal : t.saved), 900);
+    saveTimer.current = window.setTimeout(() => announce(!persistOk ? (lang === 'sw' ? 'Haikuweza kuhifadhi kwenye kifaa hiki: hifadhi imezuiwa au imejaa' : 'Could not save on this device: storage is blocked or full') : state.offline ? t.savedLocal : t.saved, !persistOk), 900);
   };
   useEffect(() => () => window.clearTimeout(saveTimer.current), []);
 
-  const goTopic = (i: number) => {
+  const goTopic = (i: number, keepErrors = false) => {
     setTopicIdx(i);
-    setShowErrors(false);
+    if (!keepErrors) setShowErrors(false);
     window.setTimeout(() => headingRef.current?.focus(), 50);
   };
 
@@ -105,7 +105,7 @@ export function SurveyPage() {
           </button>
         </div>
       </div>
-      <p className="small muted" aria-live="off">{fmt(t.survey.progress, { done: answeredCount, total: allApplicable.length })} · {version.id}</p>
+      <p className="small muted" aria-live="off">{fmt(t.survey.progress, { done: answeredCount, total: allApplicable.length })} · {version.id} · <span className="tiny">{lang === 'sw' ? 'idadi hubadilika maswali ya masharti yanapoonekana' : 'the total changes as conditional questions appear'}</span></p>
       <div className="progress" role="progressbar" aria-valuenow={progressPct} aria-valuemin={0} aria-valuemax={100} aria-label={t.survey.progress.replace('{done}', String(answeredCount)).replace('{total}', String(allApplicable.length))}>
         <div style={{ width: `${progressPct}%` }} />
       </div>
@@ -128,7 +128,7 @@ export function SurveyPage() {
         <h2 id="topic-h" ref={headingRef} tabIndex={-1} style={{ marginTop: 0 }}>
           {topicIdx + 1}. {topicName(version, topic.id, lang)}
         </h2>
-        {showErrors && unansweredHere.length > 0 && (
+        {showErrors && unansweredHere.length > 0 && topicIdx < topics.length - 1 && (
           <Callout kind="warn" role="alert">
             <strong>{fmt(t.survey.unanswered, { n: unansweredHere.length })}</strong>
             <ul style={{ margin: '6px 0 0' }}>
@@ -155,12 +155,12 @@ export function SurveyPage() {
         </div>
       </section>
       {showErrors && unansweredAll.length > 0 && topicIdx === topics.length - 1 && (
-        <Callout kind="warn">
+        <Callout kind="warn" role="alert">
           <strong>{fmt(t.survey.unanswered, { n: unansweredAll.length })}</strong>
           <ul style={{ margin: '6px 0 0' }}>
             {unansweredAll.map((q) => (
               <li key={q.question_id}>
-                <button type="button" className="btn-link" onClick={() => { goTopic(topics.findIndex((tp) => tp.id === q.topic)); window.setTimeout(() => document.getElementById(`q-${q.question_id}`)?.focus(), 80); }}>
+                <button type="button" className="btn-link" onClick={() => { goTopic(topics.findIndex((tp) => tp.id === q.topic), true); window.setTimeout(() => document.getElementById(`q-${q.question_id}`)?.focus(), 80); }}>
                   {q.question_id} · {qText(version, q, lang).question}
                 </button>
               </li>
@@ -169,6 +169,7 @@ export function SurveyPage() {
         </Callout>
       )}
       <p className="hint">{t.survey.autosave}{state.draft?.pending_sync.length ? ` · ${t.savedLocal}: ${state.draft.pending_sync.length}` : ''}</p>
+      {!persistOk && <Callout kind="danger" role="alert">{lang === 'sw' ? 'Hifadhi ya kivinjari imezuiwa au imejaa: majibu yatapotea ukifunga ukurasa.' : 'Browser storage is blocked or full: answers will be lost when you leave this page.'}</Callout>}
     </div>
   );
 }

@@ -4,11 +4,17 @@ import { fmt, useLang, useT } from '../i18n/index.tsx';
 import { Link, useRoute } from '../router/index.tsx';
 import { useAssessments } from '../lib/useAssessments.ts';
 import { latestOwnAssessment } from '../lib/sample.ts';
-import { fmtDate, fmtDateTime, qText, topicName, versionById } from '../lib/data.ts';
+import { fmtDate, fmtDateTime, localizeAnswerLabel, qText, topicName, versionById } from '../lib/data.ts';
 import { Callout, GradeBadge, Kv, Sim } from '../components/Bits.tsx';
 import { useLive } from '../components/Live.tsx';
 import { BarChart } from '../components/BarChart.tsx';
 import type { Assessment } from '../types.ts';
+
+export function noAccessReason(role: string, lang: string): string {
+  if (role === 'content') return lang === 'sw' ? 'Wahariri wa maudhui wanahariri maswali, mapendekezo na tafsiri; hawaoni majibu ya kampuni binafsi. Majibu yanaonekana kwa kampuni yenyewe, wachambuzi na wasimamizi.' : 'Content editors edit questions, recommendations and translations; they do not see individual company answers. Answers are visible to the company itself, analysts and administrators.';
+  if (role === 'methodology') return lang === 'sw' ? 'Wahariri wa mbinu wanafanya kazi na maswali, alama na kanuni; wanaona matokeo ya jumla tu, si majibu ya kampuni binafsi.' : 'Methodology editors work on questions, scores and rules; they see aggregates only, not individual company answers.';
+  return lang === 'sw' ? 'Jukumu hili halioni majibu ya kampuni binafsi.' : 'This role does not see individual company answers.';
+}
 
 export function openAssistant(): void {
   window.dispatchEvent(new CustomEvent('ndh:assistant', { detail: { open: true } }));
@@ -34,12 +40,20 @@ export function ResultsPage() {
       <div>
         <h1>{t.results.title}</h1>
         <Callout kind="warn" role="status">
-          <strong>{t.common.noAccess}</strong> — {lang === 'sw' ? 'Wahariri wa maudhui wanahariri maswali, mapendekezo na tafsiri; hawaoni majibu ya kampuni binafsi. Majibu yanaonekana kwa kampuni yenyewe, wachambuzi na wasimamizi.' : 'Content editors edit questions, recommendations and translations; they do not see individual company answers. Answers are visible to the company itself, analysts and administrators.'}
+          <strong>{t.common.noAccess}</strong> — {noAccessReason(state.role, lang)}
         </Callout>
       </div>
     );
   }
   if (loading && !assessment) return <p role="status">{t.common.loading}</p>;
+  if (assessment && state.role === 'company' && assessment.company_id !== 'C-001') {
+    return (
+      <div>
+        <h1>{t.results.title}</h1>
+        <Callout kind="warn" role="status"><strong>{t.common.noAccess}</strong> — {lang === 'sw' ? 'Kampuni huona matokeo yake pekee.' : 'A company can only open its own results.'}</Callout>
+      </div>
+    );
+  }
   if (!assessment || !assessment.result) {
     return (
       <div>
@@ -56,6 +70,7 @@ export function ResultsPage() {
   const byId = new Map(version.questions.map((q) => [q.question_id, q]));
   const thresholds = [...version.grading].sort((a, b) => b.min_percent - a.min_percent);
   const isOwn = assessment.company_id === 'C-001';
+  const unansweredCount = r.questions.filter((x) => x.applicable && !x.answered).length;
 
   return (
     <div>
@@ -67,6 +82,12 @@ export function ResultsPage() {
         </div>
       </div>
       <p className="small muted">{assessment.company_name} · {fmtDate(assessment.completed_at, lang)} · {t.results.version} {version.id}</p>
+      {unansweredCount > 0 && (
+        <Callout kind="warn">
+          {lang === 'sw' ? `Maswali ${unansweredCount} hayakujibiwa na yanahesabiwa kama alama 0. ` : `${unansweredCount} question${unansweredCount === 1 ? ' was' : 's were'} left unanswered and count as 0 points. `}
+          <Link to="/assess">{lang === 'sw' ? 'Jibu ili kukamilisha tathmini' : 'Answer them to complete the assessment'}</Link>
+        </Callout>
+      )}
 
       <div className="grid grid-2">
         <section className="card" aria-labelledby="overall-h" data-tour="grade">
@@ -197,7 +218,7 @@ export function ResultsPage() {
             <tr key={x.question_id}>
               <td className="mono small">{x.question_id}</td>
               <td>{q ? qText(version, q, lang).question : x.question_id}</td>
-              <td>{!x.applicable ? <span className="muted">{t.results.notApplicable}</span> : !x.answered ? <span className="muted">{t.results.unanswered}</span> : x.answer_label}</td>
+              <td>{!x.applicable ? <span className="muted">{t.results.notApplicable}</span> : !x.answered ? <span className="muted">{t.results.unanswered}</span> : localizeAnswerLabel(version, q!, x.answer_label, lang)}</td>
               <td className="num">{x.applicable ? x.score : '—'}</td>
               <td className="num">{x.applicable ? x.max : '—'}</td>
             </tr>

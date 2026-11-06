@@ -109,7 +109,7 @@ export function Layout({ children }: { children: ReactNode }) {
             <button type="button" className="btn btn-sm" aria-pressed={state.settings.lite} onClick={() => update((s) => ({ ...s, settings: { ...s.settings, lite: !s.settings.lite } }))}>
               {state.lang === 'sw' ? 'Hali nyepesi' : 'Lite mode'}: {state.settings.lite ? (state.lang === 'sw' ? 'imewashwa' : 'on') : (state.lang === 'sw' ? 'imezimwa' : 'off')}
             </button>
-            <PageWeight lang={state.lang} />
+            <PageWeight lang={state.lang} refreshKey={route.path} />
           </span>
         </div>
       </footer>

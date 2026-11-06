@@ -222,7 +222,7 @@ export function QuestionEditor({ version, q, canEditFull, canEditSw, issues, pat
                 </div>
               );
             })}
-            {!ro && <button type="button" className="btn btn-sm" onClick={addEntry}>Add recommendation{missingScores.length ? ` (score ${plain(missingScores[0])})` : ''}</button>}
+            {!ro && <button type="button" className="btn btn-sm" data-add onClick={addEntry}>Add recommendation{missingScores.length ? ` (score ${plain(missingScores[0])})` : ''}</button>}
           </>
         )}
       </fieldset>

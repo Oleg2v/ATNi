@@ -23,7 +23,7 @@ export const views = {
       question: 'Question',
       share: 'Share',
       priorities: 'Priorities for engagement',
-      prioritiesLead: 'The five roadmap rules that fire most often across consenting companies. These are the steps companies are most likely working on.',
+      prioritiesLead: 'The five roadmap rules that fire most often across consenting companies, i.e. the gaps identified most often. A rule firing means a gap was found, not that the company is already working on it.',
       step: 'Roadmap step',
       phase: 'Phase',
       companies: 'Companies',

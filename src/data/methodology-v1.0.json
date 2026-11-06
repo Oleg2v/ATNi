@@ -148,7 +148,7 @@
       "topic": "Marketing",
       "question": "Which marketing channels does the policy cover?",
       "question_id": "2.3",
-      "info": "Shown only when the policy and its age threshold have been described.",
+      "info": "Shown once the policy has been described (after the age-threshold question).",
       "dependency": "2.2",
       "recommandations": {
         "type": "fixed",
@@ -219,7 +219,7 @@
       "recommandations": {
         "type": "fixed",
         "x_id": "R-18",
-        "recommandation": "Programmes that combine food at work with education and breastfeeding support show the most consistent results. Add one element at a time and ask employees which one they would value next."
+        "recommandation": "A programme that combines food at work with education and breastfeeding support addresses more needs than any single element. Add one element at a time and ask employees which one they would value next."
       },
       "propositions": {
         "type": "choices",
@@ -348,7 +348,7 @@
         "1.4": { "question": "Eleza mabadiliko ya hivi karibuni uliyofanya ili kuboresha ubora wa lishe wa bidhaa.", "info": "Maandishi huru. Jibu hili haliathiri alama; linamsaidia mkaguzi kuelewa muktadha wako.", "text_proposition": "Kwa mfano: kupunguza sukari iliyoongezwa kwenye nafaka ya kifungua kinywa kutoka g 22 hadi g 15 kwa g 100 mwaka 2025." },
         "2.1": { "question": "Je, kampuni yako ina sera ya masoko yenye uwajibikaji inayohusu masoko kwa watoto?", "info": "Sera ya masoko yenye uwajibikaji inaweka sheria za jinsi bidhaa zinavyotangazwa, ikiwa ni pamoja na bidhaa zipi zinaweza kutangazwa kwa watoto na kupitia njia zipi.", "propositions": ["Ndiyo", "Hapana"] },
         "2.2": { "question": "Sera inatumia kikomo gani cha umri kumfafanua mtoto?", "info": "Linaonyeshwa tu ikiwa ulijibu Ndiyo kwa swali lililopita.", "propositions": ["Chini ya miaka 18", "Chini ya miaka 16", "Chini ya miaka 13", "Hakuna kikomo cha umri kilichowekwa"] },
-        "2.3": { "question": "Sera inahusu njia zipi za masoko?", "info": "Linaonyeshwa tu baada ya sera na kikomo chake cha umri kuelezwa.", "propositions": ["Televisheni na redio", "Mitandao ya kidijitali na kijamii", "Shule na udhamini wa michezo", "Vifungashio na matangazo dukani", "Washawishi na mabalozi wa chapa"] },
+        "2.3": { "question": "Sera inahusu njia zipi za masoko?", "info": "Linaonyeshwa mara sera inapoelezwa (baada ya swali la kikomo cha umri).", "propositions": ["Televisheni na redio", "Mitandao ya kidijitali na kijamii", "Shule na udhamini wa michezo", "Vifungashio na matangazo dukani", "Washawishi na mabalozi wa chapa"] },
         "2.4": { "question": "Je, ufuasi wa sheria zako za masoko hukaguliwa?", "info": "Ukaguzi wa ndani unamaanisha mfanyakazi mwenzako anakagua kampeni dhidi ya sheria; ukaguzi huru unamaanisha mtu wa nje anafanya hivyo na kutoa ripoti.", "propositions": ["Ndiyo, kwa ukaguzi huru", "Ndiyo, kwa ukaguzi wa ndani", "Hapana"] },
         "3.1": { "question": "Je, kampuni yako inaendesha programu ya lishe kwa wafanyakazi wake?", "info": "Mifano: milo au vitafunio vyenye afya kazini, vipindi vya elimu ya lishe, msaada wa kunyonyesha, uchunguzi wa kimsingi wa afya.", "propositions": ["Ndiyo, katika maeneo yote", "Ndiyo, katika baadhi ya maeneo", "Hapana"] },
         "3.2": { "question": "Programu yako ya wafanyakazi inajumuisha vipengele gani, kama vipo?", "info": "Chagua vyote vinavyohusika. Chagua 'Hakuna kati ya hivi' ikiwa huna programu.", "propositions": ["Chakula au vitafunio vyenye afya kazini", "Elimu ya lishe kwa wafanyakazi", "Msaada wa kunyonyesha (muda, nafasi)", "Uchunguzi wa kimsingi wa afya au lishe"] },

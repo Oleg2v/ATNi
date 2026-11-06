@@ -32,6 +32,16 @@ function reducedMotion(): boolean {
   }
 }
 
+/** Step 4 (publish gate) must point at whatever draft exists now; after the demo publish there may be none. */
+function resolveStep(i: number, versions: { id: string; status: string }[]): TourStep {
+  const def = STEPS[i];
+  if (i !== 4) return def;
+  const draft = versions.find((v) => v.status === 'draft');
+  if (draft) return { ...def, route: `/admin/methodology/${draft.id}` };
+  const published = versions.find((v) => v.status === 'published') ?? versions[0];
+  return { ...def, route: `/admin/methodology/${published.id}`, anchor: '[data-tour="health"]' };
+}
+
 /** Guided tour rendered globally. Runs while state.tour is a step index. */
 export function Tour() {
   const { state, update } = useStore();
@@ -65,7 +75,7 @@ export function Tour() {
   /* navigate, set role, then poll for the anchor */
   useEffect(() => {
     if (step === null || step < 0 || step >= STEPS.length) return;
-    const def = STEPS[step];
+    const def = resolveStep(step, state.versions);
     setStatus('searching');
     clearHighlight();
     if (def.role && state.role !== def.role) update((s) => ({ ...s, role: def.role! }));
@@ -103,7 +113,8 @@ export function Tour() {
       window.clearInterval(timer);
       clearHighlight();
     };
-    // state.role is read once per step on purpose
+    // state.role and state.versions are read once per step on purpose
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, clearHighlight, update]);
 
   /* Esc closes the tour */
@@ -144,6 +155,7 @@ export function Tour() {
       </h2>
       <p id="tour-text" className="small" style={{ margin: '0 0 10px' }}>
         {text.text}
+        {step === 4 && !state.versions.some((x) => x.status === 'draft') && <span className="muted"> (No draft exists right now: the health panel of the published version is shown instead. Create a draft from the versions list to try the gate.)</span>}
         {status === 'missing' && <span className="muted"> {v.notOnScreen}</span>}
       </p>
       <div className="row">
